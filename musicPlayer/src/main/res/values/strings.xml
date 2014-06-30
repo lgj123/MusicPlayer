@@ -1,0 +1,231 @@
+<!--
+/*
+ * Copyright 2012-2014 Andrea De Cesare
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+
+<resources>
+    <string name="app_name">Music Player</string>
+    <string name="webRadio">Web Radio</string>
+	<string name="quit">Quit</string>
+	<string name="quitApp">Quit app</string>
+    <string name="shuffle">Shuffle</string>
+	<string name="repeat">Repeat</string>
+	<string name="repeatAll">Repeat all</string>
+    <string name="rootError">Can\'t go to parent directory</string>
+    <string name="dirError">Directory not readable</string>
+    <string name="errorSong">Can\'t play selected song</string>
+    <string name="errorSongMessage">An error occurred while trying to open the file.</string>
+    <string name="noSong">No song loaded</string>
+    <string name="url">URL</string>
+    <string name="go">Go</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="yes">Yes</string>
+	<string name="no">No</string>
+	<string name="viewAll">View all</string>
+	<string name="viewAllInBrowser">View all in web browser</string>
+	<string name="errorNetwork">Error retrieving data!</string>
+	<string name="loading">Loading&#8230;</string>
+	<string name="loadingRadio">Loading %1$s&#8230;</string>
+	<string name="errorWebRadio">Error opening web radio</string>
+	<string name="errorWebRadioMessage">It is impossible to play this web radio. Please check if the URL is correct and if you are connected to the internet.</string>
+	<string name="notFound">Not found</string>
+	<string name="ok">OK</string>
+	<string name="cancel">Cancel</string>
+	<string name="error">Error</string>
+	<string name="name">Name</string>
+	<string name="previous">Previous</string>
+	<string name="play">Play</string>
+	<string name="pause">Pause</string>
+	<string name="next">Next</string>
+	<string name="errorInvalidURL">Please insert a valid URL!</string>
+	<string name="preferences">Preferences</string>
+	<string name="stopPlayingWhenHeadsetDisconnected">Stop when headset disconnected</string>
+	<string name="stopPlayingWhenHeadsetDisconnectedSummary">Stop playing when headset is disconnected.</string>
+	<string name="disableLockScreen">Disable keyguard</string>
+	<string name="disableLockScreenSummary">Don\'t show keyguard when the application is foreground and screen turns on.</string>
+	<string name="startingOptions">Starting options</string>
+	<string name="openLastSongOnStart">Open last played song</string>
+	<string name="openLastSongOnStartSummary">Open last played song when application starts.</string>
+	<string name="saveSongPosition">Save song position</string>
+	<string name="saveSongPositionSummary">Save the position of the last song played.</string>
+	<string name="openLastPageOnStart">Open last page</string>
+	<string name="openLastPageOnStartSummary">Open last used page (browser, playlists, radios or podcasts) when application starts.</string>
+	<string name="appearance">Appearance</string>
+	<string name="songsSorting">Songs sorting</string>
+	<string name="songsSortingSummary">Choose how songs are sorted in the browser.</string>
+	<string name="importMsg">Import</string>
+	<string name="importSummary">Import radios and podcasts from file.</string>
+	<string name="export">Export</string>
+	<string name="exportSummary">Export radios and podcasts to file.</string>
+	<string name="importSuccess">Import completed.</string>
+	<string name="importError">An error occurred while importing.</string>
+	<string name="exportSuccess">Export completed.</string>
+	<string name="exportError">An error occurred while exporting.</string>
+	<string name="otherSettings">Other settings</string>
+	<string name="importConfirm">Import from file %1$s?</string>
+	<string name="exportConfirm">Export to file %1$s?</string>
+	<string name="cache">Cache</string>
+	<string name="enableCache">Enable cache</string>
+	<string name="enableCacheSummary">If enabled, inserts songs\' info into a cache, to speed up loading time and enable songs search.</string>
+	<string name="clearCache">Clear cache</string>
+	<string name="clearCacheSummary">Currently used: %1$s KB</string>
+	<string name="clearCacheConfirm">Clear the cache?</string>
+	<string name="cacheCleared">Cache cleared!</string>
+	<string name="about">About</string>
+	<string name="version">Version %1$s</string>
+	<string name="restartPlaybackAfterPhoneCall">Restart after call</string>
+	<string name="restartPlaybackAfterPhoneCallSummary">Restart playing after a phone call ends.</string>
+	<string name="browser">Browser</string>
+	<string name="playlist">Playlist</string>
+	<string name="radio">Radio</string>
+	<string name="addRadio">Add radio</string>
+	<string name="deleteRadioConfirm">Delete this radio?</string>
+	<string name="addToPlaylist">Add to playlist</string>
+	<string name="addingSongsToPlaylist">Adding songs to playlist&#8230;</string>
+	<string name="addedToPlaylist">Added to playlist</string>
+	<string name="addFolderToPlaylist">Add folder content to playlist</string>
+	<string name="newPlaylist">New playlist</string>
+	<string name="editPlaylist">Edit playlist</string>
+	<string name="removeFromPlaylist">Remove from playlist</string>
+	<string name="deletePlaylistConfirm">Delete this playlist?</string>
+	<string name="errorPlaylistName">You must insert a name for the playlist!</string>
+	<string name="titleLines">Title lines</string>
+	<string name="titleLinesSummary">How many lines to use to show songs\' titles.</string>
+	<string name="gotoPlayingSongDirectory">Where is?</string>
+	<string name="setAsBaseFolder">Set as base folder</string>
+	<string name="indexBaseFolder">Index base folder</string>
+	<string name="indexBaseFolderSummary">Index base folder to improve performance and use the search function. Make sure you set the base folder before going on.</string>
+	<string name="indexBaseFolderConfirm">Would you like to index this folder and all its subfolders?</string>
+	<string name="setBaseFolderConfirm">This folder will be set as base folder. Are you sure?</string>
+	<string name="indexingCompleted">Indexing completed.</string>
+	<string name="indexingWait">Indexing in progress&#8230;</string>
+	<string name="baseFolderNotSetTitle">Base folder not set</string>
+	<string name="baseFolderNotSetMessage">Base folder has not been chosen yet. To choose a base folder long press on it in the directory browser and choose "Set as base folder".</string>
+	<string name="baseFolderReachedTitle">Base folder reached</string>
+	<string name="baseFolderReachedMessage">You reached the base folder. Go to the parent folder?</string>
+	<string name="currentBaseFolder">Current base folder:</string>
+	<string name="baseFolderInstructions">To choose a base folder long press on it in the directory browser and choose "Set as base folder".</string>
+	<string name="notSet">Not set</string>
+	<string name="search">Search</string>
+	<string name="searchNotPossible">To use search function you must enable cache in the preferences and index your folders.</string>
+	<string name="noResultsFoundTitle">Nothing found!</string>
+	<string name="noResultsFoundMessage">No song matching the input was found.\nSearch is performed in indexed folders only!</string>
+	<string name="bassBoost">Bass boost</string>
+	<string name="bassBoostButton">Bass</string>
+	<string name="equalizer">Equalizer</string>
+	<string name="errorBassBoost">Bass boost is not available on this device.</string>
+	<string name="errorEqualizer">Equalizer is not available on this device.</string>
+	<string name="equalizerButton">EQ</string>
+	<string name="preset">Preset:</string>
+	<string name="enabled">Enabled</string>
+	<string name="close">Close</string>
+	<string name="songNotFound">This song is no longer available. You should rebuild songs cache.</string>
+	<string name="songInfo">Song info</string>
+	<string name="artist">Artist</string>
+	<string name="title">Title</string>
+	<string name="fileName">File name</string>
+	<string name="fileSize">File size</string>
+	<string name="trackNumber">Track number</string>
+	<string name="bitrate">Bitrate</string>
+	<string name="album">Album</string>
+	<string name="year">Year</string>
+	<string name="status">Status</string>
+	<string name="errorInvalidName">Name can\'t be empty!</string>
+	<string name="gotoBaseFolder">Go to base folder</string>
+	<string name="importExport">Import/export</string>
+	<string name="stopDownload">Stop download</string>
+	<string name="showSongImage">Show song image</string>
+	<string name="pressAgainToQuitApp">Press again to quit app</string>
+	<string name="enableBackDoublePressToQuitApp">Back button to close app</string>
+	<string name="enableBackDoublePressToQuitAppSummary">Use double tap on back button to close the app.</string>
+	<string name="showRelativePathUnderBaseDirectory">Relative path</string>
+	<string name="showRelativePathUnderBaseDirectorySummary">Show relative path for folders under base directory.</string>
+	<string name="translucentStatusBar">Translucent status bar</string>
+	<string name="translucentNavigationBar">Translucent navigation bar</string>
+	<string name="restartNeeded">Restart needed</string>
+	<string name="restartNeededMessage">To apply some settings the app must be restarted.</string>
+	<string name="chooseDirectory">Choose a directory</string>
+	<string name="currentDirectory">Current directory:</string>
+	<string name="enableGestures">Enable gestures</string>
+	<string name="enableGesturesSummary">Enable gestures to control music playback.</string>
+	<string name="showPlaybackControls">Show playback controls</string>
+	<string name="showPlaybackControlsSummary">Show buttons to control playback.</string>
+	<string name="repeatLastSearch">Repeat last search</string>
+	
+	<!-- Podcasts -->
+	<string name="podcast">Podcast</string>
+	<string name="podcasts">Podcasts</string>
+	<string name="addPodcast">Add podcast</string>
+	<string name="removePodcastConfirm">Remove this podcast?</string>
+	<string name="update">Update</string>
+	<string name="download">Download</string>
+	<string name="streaming">Streaming</string>
+	<string name="chooseDownloadMethod">How would you like to listen?</string>
+	<string name="updatingPodcast">Updating podcast&#8230;</string>
+	<string name="podcastStatusNew">New</string>
+	<string name="podcastStatusDownloaded">Downloaded</string>
+	<string name="podcastStatusDownloading">Downloading&#8230;</string>
+	<string name="podcastDownloading">Downloading podcast: %1$s</string>
+	<string name="podcastDownloadError">An error occurred while downloading podcast.</string>
+	<string name="podcastDownloadNoWifiConfirm">You are not connected to a WiFi network. Continue with download?</string>
+	<string name="podcastsDirectory">Podcasts download directory</string>
+	<string name="podcastsDirectorySummary">The directory where podcasts will be downloaded.</string>
+	<string name="podcastNameError">Podcast name can\'t be empty!</string>
+	<string name="podcastDirectoryNotExist">The directory where to save podcasts does not exist. Please check settings.</string>
+	<string name="removeDownloadedEpisodes">Remove downloaded episodes</string>
+	<string name="removeAllEpisodes">Remove all episodes</string>
+	<string name="removeAllEpisodesConfirm">Remove all episodes?</string>
+	<string name="removeEpisodesConfirm">Remove all episodes for %1$s?</string>
+	<string name="removeEpisodesCompletion">Episodes removed.</string>
+	<string name="removeAllDownloadedEpisodesConfirm">Remove all downloaded episodes?</string>
+	<string name="removeDownloadedEpisodesConfirm">Remove all downloaded episodes for %1$s?</string>
+	<string name="removeDownloadedEpisodesCompletion">Downloaded episodes removed.</string>
+	<string name="loadingPodcastEpisode">Loading podcast episode: %1$s</string>
+	
+	<!-- Shake sensor -->
+	<string name="shake">Shake</string>
+	<string name="shakeSensor">Shake sensor</string>
+	<string name="shakeSensorSummary">Configure the shake sensor of your device.</string>
+	<string name="shakeSensorEnabled">Shake sensor enabled</string>
+	<string name="shakeAction">Action to execute</string>
+	<string name="shakeActionSummary">Action to be executed when device shake is detected.</string>
+	<string name="shakeInterval">Shake interval</string>
+	<string name="shakeIntervalSummary">Interval between two subsequent shakes are detected.</string>
+	<string name="shakeIntervalMessage">Time in milliseconds. To apply this setting you need to restart the application!</string>
+	<string name="shakeThreshold">Shake sensor threshold</string>
+	<string name="shakeThresholdMessage">Use low values for higher sensibility. To apply this setting you need to restart the application!</string>
+	<string name="restartToApply">To apply this preference you need to restart the application!</string>
+	
+	<!-- Overlay helper -->
+	<string name="overlayMain">Welcome to Music Player.\n\nPlease navigate to your music folder and choose \"Set as base folder\" from menu to index it and all its subfolders.</string>
+	<string name="overlayIndexing">To improve loading times and enable songs search, this app needs to index your music folder.\n\nTo do so, go to the main folder and choose \"Set as base folder\" from menu to index it and all its subfolders.</string>
+	
+	<!-- Strings for about page -->
+	<string name="license">License</string>
+	<string name="specialThanks">Special thanks to</string>
+	<string name="libraries">Libraries</string>
+	<string name="librariesUsed">This project uses the following open source libraries.</string>
+	<string name="icons">Icons</string>
+	<string name="apacheLicense" translatable="false">
+		<![CDATA[
+			<p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.<br>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+		]]>
+	</string>
+	
+	<string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+</resources>

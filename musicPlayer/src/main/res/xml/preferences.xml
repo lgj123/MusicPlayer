@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+/*
+ * Copyright 2012-2013 Andrea De Cesare
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <PreferenceCategory android:title="@string/appearance">
+    	<ListPreference
+    	    android:entryValues="@array/songsSortingValues"
+    	    android:entries="@array/songsSortingKeys"
+    	    android:title="@string/songsSorting"
+    	    android:summary="@string/songsSortingSummary"
+    	    android:key="songsSortingMethod"
+    	    android:defaultValue="nat" />
+    	<ListPreference android:title="@string/titleLines"
+    	    android:summary="@string/titleLinesSummary"
+    	    android:entryValues="@array/titleLinesValues"
+    	    android:entries="@array/titleLinesKeys"
+    	    android:key="titleLines"
+    	    android:defaultValue="1" />
+    	<CheckBoxPreference
+    	    android:key="showSongImage"
+    	    android:title="@string/showSongImage"
+    	    android:defaultValue="true" />
+    	<CheckBoxPreference
+    	    android:key="showRelativePathUnderBaseDirectory"
+    	    android:title="@string/showRelativePathUnderBaseDirectory"
+    	    android:summary="@string/showRelativePathUnderBaseDirectorySummary"
+    	    android:defaultValue="true" />
+    	<CheckBoxPreference
+    	    android:key="translucentStatusBar"
+    	    android:title="@string/translucentStatusBar"
+    	    android:defaultValue="true" />
+    	<CheckBoxPreference
+    	    android:key="translucentNavigationBar"
+    	    android:title="@string/translucentNavigationBar"
+    	    android:defaultValue="true" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/startingOptions">
+        <CheckBoxPreference
+			android:key="openLastSongOnStart"
+			android:title="@string/openLastSongOnStart"
+			android:summary="@string/openLastSongOnStartSummary" />
+	    <CheckBoxPreference
+	        android:key="saveSongPosition"
+	        android:title="@string/saveSongPosition"
+	        android:summary="@string/saveSongPositionSummary"
+	        android:dependency="openLastSongOnStart" />
+	    <CheckBoxPreference
+	        android:key="openLastPageOnStart"
+	        android:title="@string/openLastPageOnStart"
+	        android:summary="@string/openLastPageOnStartSummary" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/otherSettings">
+        <CheckBoxPreference
+			android:key="stopPlayingWhenHeadsetDisconnected"
+			android:title="@string/stopPlayingWhenHeadsetDisconnected"
+			android:summary="@string/stopPlayingWhenHeadsetDisconnectedSummary"
+        	android:defaultValue="true" />
+	    <CheckBoxPreference
+	        android:key="disableLockScreen"
+	        android:title="@string/disableLockScreen"
+	        android:summary="@string/disableLockScreenSummary" />
+	    <CheckBoxPreference
+	        android:key="restartPlaybackAfterPhoneCall"
+	        android:title="@string/restartPlaybackAfterPhoneCall"
+	        android:summary="@string/restartPlaybackAfterPhoneCallSummary" />
+	    <CheckBoxPreference
+	        android:key="enableBackDoublePressToQuitApp"
+	        android:title="@string/enableBackDoublePressToQuitApp"
+	        android:summary="@string/enableBackDoublePressToQuitAppSummary"
+	        android:defaultValue="true" />
+	    <CheckBoxPreference
+			android:key="enableGestures"
+			android:title="@string/enableGestures"
+			android:summary="@string/enableGesturesSummary"
+        	android:defaultValue="false" />
+	    <CheckBoxPreference
+			android:key="showPlaybackControls"
+			android:title="@string/showPlaybackControls"
+			android:summary="@string/showPlaybackControlsSummary"
+			android:dependency="enableGestures"
+        	android:defaultValue="true" />
+	    <Preference
+	        android:key="podcastsDirectory"
+	        android:title="@string/podcastsDirectory"
+	        android:summary="@string/podcastsDirectorySummary" />
+	</PreferenceCategory>
+	
+    <PreferenceCategory android:title="@string/cache">
+        <CheckBoxPreference
+            android:key="enableCache"
+            android:title="@string/enableCache"
+            android:summary="@string/enableCacheSummary"
+            android:defaultValue="true" />
+        <Preference
+            android:key="clearCache"
+            android:title="@string/clearCache"
+            android:summary="@string/clearCacheSummary" />
+        <Preference
+            android:key="indexBaseFolder"
+            android:title="@string/indexBaseFolder"
+            android:summary="@string/indexBaseFolderSummary" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/importExport">
+        <Preference 
+            android:key="import"
+            android:title="@string/importMsg"
+            android:summary="@string/importSummary" />
+        <Preference 
+            android:key="export"
+            android:title="@string/export"
+            android:summary="@string/exportSummary" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/shakeSensor">
+	    <PreferenceScreen android:title="@string/shakeSensor" android:summary="@string/shakeSensorSummary">
+	        <ListPreference
+	    	    android:entryValues="@array/shakeActionValues"
+	    	    android:entries="@array/shakeActionKeys"
+	    	    android:title="@string/shakeAction"
+	    	    android:summary="@string/shakeActionSummary"
+	    	    android:key="shakeAction"
+	    	    android:defaultValue="playpause" />
+	        <EditTextPreference
+	            android:key="shakeInterval"
+	            android:title="@string/shakeInterval"
+	            android:summary="@string/shakeIntervalSummary"
+	            android:defaultValue="1000"
+	            android:dialogMessage="@string/shakeIntervalMessage" />
+	        <EditTextPreference
+	            android:key="shakeThreshold"
+	            android:title="@string/shakeThreshold"
+	            android:defaultValue="1000"
+	            android:dialogMessage="@string/shakeThresholdMessage" />
+	    </PreferenceScreen>
+	</PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/about">
+        <Preference
+            android:key="about"
+            android:title="@string/about" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

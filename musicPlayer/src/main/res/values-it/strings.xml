@@ -1,0 +1,226 @@
+<!--
+/*
+ * Copyright 2012-2014 Andrea De Cesare
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+
+<resources>
+    <string name="app_name">Music Player</string>
+    <string name="webRadio">Radio Web</string>
+	<string name="quit">Esci</string>
+	<string name="quitApp">Chiudi app</string>
+    <string name="shuffle">Casuale</string>
+	<string name="repeat">Ripeti</string>
+	<string name="repeatAll">Ripeti tutto</string>
+    <string name="rootError">Impossibile aprire la cartella superiore</string>
+    <string name="dirError">Impossibile aprire la cartella</string>
+    <string name="errorSong">Impossibile riprodurre il brano</string>
+    <string name="errorSongMessage">Si è verificato un errore nell\'apertura del file.</string>
+    <string name="noSong">Nessuna canzone aperta</string>
+    <string name="url">URL</string>
+    <string name="go">Vai</string>
+    <string name="edit">Modifica</string>
+    <string name="delete">Elimina</string>
+    <string name="yes">Si</string>
+	<string name="no">No</string>
+	<string name="viewAll">Visualizza tutto</string>
+	<string name="viewAllInBrowser">Visualizza tutto nel browser web</string>
+	<string name="errorNetwork">Errore nel download!</string>
+	<string name="loading">Caricamento&#8230;</string>
+	<string name="loadingRadio">Caricamento di %1$s&#8230;</string>
+	<string name="errorWebRadio">Errore nell\'apertura della radio web</string>
+	<string name="errorWebRadioMessage">Si è verificato un errore nella riproduzione di questa radio web. Verifica che lo URL inserito sia corretto e che la connessione ad internet sia attiva.</string>
+	<string name="notFound">Non trovato</string>
+	<string name="ok">OK</string>
+	<string name="cancel">Annulla</string>
+	<string name="error">Errore</string>
+	<string name="name">Nome</string>
+	<string name="previous">Precedente</string>
+	<string name="play">Play</string>
+	<string name="pause">Pausa</string>
+	<string name="next">Successiva</string>
+	<string name="errorInvalidURL">Lo URL inserito non è valido!</string>
+	<string name="preferences">Preferenze</string>
+	<string name="stopPlayingWhenHeadsetDisconnected">Interrompi riproduzione quando gli auricolari vengono scollegati</string>
+	<string name="stopPlayingWhenHeadsetDisconnectedSummary">Interrompi la riproduzione quando gli auricolari vengono scollegati.</string>
+	<string name="openLastSongOnStart">Riapri ultima canzone</string>
+	<string name="disableLockScreenSummary">Non mostra la schermata di sblocco quando si riaccende lo schermo.</string>
+	<string name="startingOptions">Opzioni di avvio</string>
+	<string name="openLastSongOnStartSummary">All\'avvio riapri l\'ultima canzone riprodotta.</string>
+	<string name="disableLockScreen">Disabilita schermata di sblocco</string>
+	<string name="saveSongPosition">Salva posizione brano</string>
+	<string name="saveSongPositionSummary">Salva la posizione raggiunta nell\'ultimo brano prima della chiusura dell\'applicazione.</string>
+	<string name="openLastPageOnStart">Riapri ultima pagina</string>
+	<string name="openLastPageOnStartSummary">All\'avvio riapri l\'ultima pagina utilizzata (browser, playlist, radio o podcast).</string>
+	<string name="appearance">Aspetto</string>
+	<string name="songsSorting">Ordinamento brani</string>
+	<string name="songsSortingSummary">Imposta l\'ordine in cui vengono visualizzati i brani nel browser.</string>
+	<string name="importMsg">Importa</string>
+	<string name="importSummary">Importa informazioni su radio e podcat da file.</string>
+	<string name="export">Esporta</string>
+	<string name="exportSummary">Esporta informazioni su radio e podcast su file.</string>
+	<string name="importSuccess">Importazione completata.</string>
+	<string name="importError">Si è verificato un errore durante l\'importazione.</string>
+	<string name="exportSuccess">Esportazione completata.</string>
+	<string name="exportError">Si è verificato un errore durante l\'esportazione.</string>
+	<string name="otherSettings">Altre impostazioni</string>
+	<string name="importConfirm">Importare dal file %1$s?</string>
+	<string name="exportConfirm">Esportare nel file %1$s?</string>
+	<string name="cache">Cache</string>
+	<string name="enableCache">Abilita cache</string>
+	<string name="enableCacheSummary">Se abilitato, inserisce le informazioni sui brani all\'interno di una cache per permettere un\'apertura più veloce delle cartelle ed abilitare la ricerca delle canzoni.</string>
+	<string name="clearCache">Svuota cache</string>
+	<string name="clearCacheSummary">Spazio utilizzato: %1$s KB</string>
+	<string name="clearCacheConfirm">Cancellare la cache?</string>
+	<string name="cacheCleared">Cache svuotata!</string>
+	<string name="about">Informazioni</string>
+	<string name="version">Versione %1$s</string>
+	<string name="restartPlaybackAfterPhoneCall">Riavvia dopo telefonata</string>
+	<string name="restartPlaybackAfterPhoneCallSummary">Riavvia la riproduzione al termine di una telefonata.</string>
+	<string name="browser">Browser</string>
+	<string name="playlist">Playlist</string>
+	<string name="radio">Radio</string>
+	<string name="addRadio">Aggiungi radio</string>
+	<string name="deleteRadioConfirm">Eliminare questa radio?</string>
+	<string name="addToPlaylist">Aggiungi alla playlist</string>
+	<string name="addingSongsToPlaylist">Aggiunta canzoni alla playlist in corso&#8230;</string>
+	<string name="addFolderToPlaylist">Aggiungi contenuto della cartella alla playlist</string>
+	<string name="addedToPlaylist">Aggiunta alla playlist</string>
+	<string name="newPlaylist">Nuova playlist</string>
+	<string name="editPlaylist">Modifica playlist</string>
+	<string name="removeFromPlaylist">Rimuovi dalla playlist</string>
+	<string name="deletePlaylistConfirm">Eliminare questa playlist?</string>
+	<string name="errorPlaylistName">You must insert a name for the playlist!</string>
+	<string name="titleLines">Righe per il titolo</string>
+	<string name="titleLinesSummary">Quante righe usare per mostrare i titoli delle canzoni.</string>
+	<string name="gotoPlayingSongDirectory">Dov\'è?</string>
+	<string name="setAsBaseFolder">Imposta come cartella base</string>
+	<string name="indexBaseFolder">Indicizza cartella base</string>
+	<string name="indexBaseFolderSummary">Indicizzare la cartella base per ottenere migliori prestazioni e per poter utilizzare la funzione di ricerca. Assicurarsi di aver impostato la cartella base prima di procedere.</string>
+	<string name="indexBaseFolderConfirm">Vuoi indicizzare questa cartella e tutte le sue sottocartelle?</string>
+	<string name="setBaseFolderConfirm">Questa cartella verrà impostata come cartella base. Sei sicuro?</string>
+	<string name="indexingCompleted">Indicizzazione completata.</string>
+	<string name="indexingWait">Indicizzazione in corso&#8230;</string>
+	<string name="baseFolderNotSetTitle">Cartella base non impostata</string>
+	<string name="baseFolderNotSetMessage">La cartella base non è stata ancora impostata. Per scegliere una cartella base esegui una pressione prolungata su di essa nel browser e scegli "Imposta come cartella base".</string>
+	<string name="baseFolderReachedTitle">Cartella base raggiunta</string>
+	<string name="baseFolderReachedMessage">Sei nella cartella base. Andare alla cartella superiore?</string>
+	<string name="currentBaseFolder">Cartella base attuale:</string>
+	<string name="baseFolderInstructions">Per scegliere una cartella base esegui una pressione prolungata su di essa nel browser e scegli "Imposta come cartella base".</string>
+	<string name="notSet">Non impostata</string>
+	<string name="search">Cerca</string>
+	<string name="searchNotPossible">Per poter utilizzare la ricerca devi abilitare la cache nelle preferenze ed indicizzare le cartelle.</string>
+	<string name="noResultsFoundTitle">Nessun risultato</string>
+	<string name="noResultsFoundMessage">Non è stata trovata alcuna canzone con la chiave di ricerca inserita.\nSi noti che la ricerca viene effettuata solo all\'interno delle cartelle indicizzate.</string>
+	<string name="bassBoost">Bass boost</string>
+	<string name="bassBoostButton">Bass</string>
+	<string name="equalizer">Equalizzatore</string>
+	<string name="equalizerButton">EQ</string>
+	<string name="errorBassBoost">La funzione bass boost non è disponibile su questo dispositivo.</string>
+	<string name="errorEqualizer">L\'equalizzatore non è disponibile su questo dispositivo.</string>
+	<string name="preset">Preset:</string>
+	<string name="enabled">Abilitato</string>
+	<string name="close">Chiudi</string>
+	<string name="songNotFound">Questa canzone non è più disponibile. Dovresti ricreare la cache.</string>
+	<string name="songInfo">Info sul brano</string>
+	<string name="artist">Artista</string>
+	<string name="title">Titolo</string>
+	<string name="fileName">Nome file</string>
+	<string name="fileSize">Dimensione file</string>
+	<string name="trackNumber">Numero di traccia</string>
+	<string name="bitrate">Bitrate</string>
+	<string name="album">Album</string>
+	<string name="year">Anno</string>
+	<string name="status">Stato</string>
+	<string name="errorInvalidName">Deve essere inserito un nome!</string>
+	<string name="gotoBaseFolder">Vai alla cartella base</string>
+	<string name="stopDownload">Interrompi download</string>
+	<string name="showSongImage">Mostra immagine brano</string>
+	<string name="pressAgainToQuitApp">Premi nuovamente per uscire</string>
+	<string name="enableBackDoublePressToQuitApp">Tasto indietro per uscire</string>
+	<string name="enableBackDoublePressToQuitAppSummary">Chiudi l\'applicazione premendo due volte il tasto indietro.</string>
+	<string name="showRelativePathUnderBaseDirectory">Percorso relativo</string>
+	<string name="showRelativePathUnderBaseDirectorySummary">Mostra percorso relativo per le cartelle contenute nella directory principale.</string>
+	<string name="translucentStatusBar">Barra di stato trasparente</string>
+	<string name="translucentNavigationBar">Barra di navigazione trasparente</string>
+	<string name="restartNeeded">Riavvio necessario</string>
+	<string name="restartNeededMessage">Per applicare alcune impostazioni è necessario riavviare l\'applicazione.</string>
+	<string name="chooseDirectory">Scegli una directory</string>
+	<string name="currentDirectory">Directory attuale:</string>
+	<string name="enableGestures">Abilita gestures</string>
+	<string name="enableGesturesSummary">Abilita le gestures per controllare la riproduzione musicale.</string>
+	<string name="showPlaybackControls">Mostra controlli riproduzione</string>
+	<string name="showPlaybackControlsSummary">Mostra i pulsanti per controllare la riproduzione.</string>
+	<string name="repeatLastSearch">Ripeti l\'ultima ricerca</string>
+	
+	<!-- Podcasts -->
+	<string name="podcast">Podcast</string>
+	<string name="podcasts">Podcast</string>
+	<string name="addPodcast">Aggiungi podcast</string>
+	<string name="removePodcastConfirm">Eliminare questo podcast?</string>
+	<string name="update">Aggiorna</string>
+	<string name="download">Download</string>
+	<string name="streaming">Streaming</string>
+	<string name="chooseDownloadMethod">Come vuoi procedere?</string>
+	<string name="updatingPodcast">Aggiornamento podcast in corso&#8230;</string>
+	<string name="podcastStatusNew">Nuovo</string>
+	<string name="podcastStatusDownloaded">Scaricato</string>
+	<string name="podcastStatusDownloading">Download in corso&#8230;</string>
+	<string name="podcastDownloading">Download podcast: %1$s</string>
+	<string name="podcastDownloadError">Si è verificato un errore durante il download del podcast.</string>
+	<string name="podcastDownloadNoWifiConfirm">Non si è connessi ad una rete WiFi. Continuare con il download?</string>
+	<string name="podcastsDirectory">Percorso download podcast</string>
+	<string name="podcastsDirectorySummary">La cartella dove verranno scaricati i podcast.</string>
+	<string name="importExport">Importazione/esportazione</string>
+	<string name="podcastNameError">Deve essere inserito un nome per il podcast!</string>
+	<string name="podcastDirectoryNotExist">La cartella dove scaricare i podcast non esiste. Verifica le impostazioni.</string>
+	<string name="removeDownloadedEpisodes">Elimina episodi scaricati</string>
+	<string name="removeAllEpisodes">Elimina tutti gli episodi</string>
+	<string name="removeAllEpisodesConfirm">Eliminare tutti gli episodi?</string>
+	<string name="removeEpisodesConfirm">Eliminare tutti gli episodi del podcast %1$s?</string>
+	<string name="removeEpisodesCompletion">Episodi eliminati.</string>
+	<string name="removeAllDownloadedEpisodesConfirm">Eliminare tutti gli episodi scaricati?</string>
+	<string name="removeDownloadedEpisodesConfirm">Eliminare tutti gli episodi scaricati del podcast %1$s?</string>
+	<string name="removeDownloadedEpisodesCompletion">Episodi scaricati eliminati.</string>
+	<string name="loadingPodcastEpisode">Caricamento episodio %1$s</string>
+	
+	<!-- Shake sensor -->
+	<string name="shake">Shake</string>
+	<string name="shakeSensor">Shake sensor</string>
+	<string name="shakeSensorSummary">Configura il sensore di movimento del dispositivo.</string>
+	<string name="shakeSensorEnabled">Shake sensor abilitato</string>
+	<string name="shakeAction">Azione da eseguire</string>
+	<string name="shakeActionSummary">Azione che viene eseguita quando viene rilevato il movimento del dispositivo.</string>
+	<string name="shakeInterval">Intervallo tra le azioni</string>
+	<string name="shakeIntervalSummary">Intervallo tra due azioni di movimento successive.</string>
+	<string name="shakeIntervalMessage">Tempo in millisecondi. Per applicare questa impostazione è necessario riavviare l\'applicazione!</string>
+	<string name="shakeThreshold">Sensibilità del sensore</string>
+	<string name="shakeThresholdMessage">Usare valori bassi per aumentare la sensibilità. Per applicare questa impostazione è necessario riavviare l\'applicazione!</string>
+	<string name="restartToApply">Per applicare questa impostazione è necessario riavviare l\'applicazione!</string>
+	
+	<!-- Overlay helper -->
+	<string name="overlayMain">Benvenuto nel Music Player.\n\nPer rendere più agevole l\'accesso ai brani, vai nella cartella principale dove hai la tua musica e scegli \"Imposta come cartella base\" dal menu.</string>
+	<string name="overlayIndexing">Per migliorare i tempi di caricamento ed abilitare la ricerca delle canzoni, questa app deve indicizzare la cartella della musica.\n\nPer fare ciò vai nella cartella principale dove hai la tua musica e scegli \"Imposta come cartella base\" dal menu.</string>
+	
+	<!-- Strings for about page -->
+	<string name="license">Licenza</string>
+	<string name="specialThanks">Un ringraziamento speciale a</string>
+	<string name="libraries">Librerie</string>
+	<string name="librariesUsed">In questo progetto vengono usate le seguenti librerie open source.</string>
+	<string name="icons">Icone</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+</resources>

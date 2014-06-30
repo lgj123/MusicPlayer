@@ -1,0 +1,48 @@
+apply plugin: 'android'
+
+android {
+    //compileSdkVersion 19
+    //compileSdkVersion "android-L"
+    buildToolsVersion '20.0.0'
+    defaultConfig {
+        applicationId 'com.andreadec.musicplayer'
+        minSdkVersion 10
+        targetSdkVersion 19
+    }
+    buildTypes {
+        release {
+            runProguard true
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    productFlavors {
+        androidL {
+            minSdkVersion 'L'
+            targetSdkVersion 'L'
+            compileSdkVersion "android-L"
+        }
+        android {
+            minSdkVersion 10
+            targetSdkVersion 19
+            compileSdkVersion 19
+        }
+    }
+}
+
+project.ext.set("archivesBaseName", "MusicPlayer");
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    androidCompile 'com.android.support:support-v4:19.+'
+    androidLCompile 'com.android.support:support-v4:20.+'
+    compile 'com.mobeta.android.dslv:drag-sort-listview:0.6.1@aar'
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+}

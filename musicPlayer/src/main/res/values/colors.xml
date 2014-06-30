@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+/*
+ * Copyright 2012-2014 Andrea De Cesare
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+
+<resources>
+    <!-- Colors definitions -->
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="grey">#2C2C2C</color>
+    <color name="lightGrey">#e6e6e6</color>
+    <color name="lightGreen">#99CC00</color>
+    <color name="darkGreen">#669900</color>
+    <color name="blackSemiTransparent">#D0000000</color>
+    <color name="whiteSemiTransparent">#66FFFFFF</color>
+    
+    <!-- Orange colors from Android palette: http://developer.android.com/design/style/color.html -->
+    <color name="orange1">#ff8a00</color>
+    <color name="orange2">#ff9105</color>
+    <color name="orange3">#ff9909</color>
+    <color name="orange4">#ffa00e</color>
+    <color name="orange5">#ffa713</color>
+    <color name="orange6">#ffae18</color>
+    <color name="orange7">#ffb61c</color>
+    <color name="orange8">#ffbd21</color>
+    <color name="orange9">#ffc641</color>
+    <color name="orange10">#ffd060</color>
+    <color name="orange11">#ffd980</color>
+    <color name="orange12">#ffe3a0</color>
+    <color name="orange13">#ffecc0</color>
+    <color name="orange14">#fff6df</color>
+    
+    <color name="actionBarBackground">@color/orange2</color>
+    
+    <color name="navigationBackground">@color/white</color>
+    <color name="navigationSelection">@color/lightGrey</color>
+    <color name="navigationTextColor">@color/black</color>
+    
+    <color name="cardColor">@color/white</color>
+    <color name="cardPlayingColor">@color/orange12</color>
+    <color name="cardBorderColor">#ccc</color>
+</resources>

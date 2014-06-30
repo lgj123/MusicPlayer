@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+* Copyright 2012-2014 Andrea De Cesare
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/notificationHeight"
+    android:orientation="horizontal" >
+    
+    <ImageView
+        android:id="@+id/imageViewNotification"
+	    android:layout_width="@dimen/notificationImageSize"
+	    android:layout_height="@dimen/notificationImageSize"
+	    android:src="@drawable/ic_launcher"
+	    android:paddingRight="5dp"
+	    android:layout_gravity="center" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+       
+        <TextView
+	        android:id="@+id/textViewArtist"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/app_name" />
+        
+        <TextView
+	        android:id="@+id/textViewTitle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="@android:style/TextAppearance.Medium" />
+        
+        <LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center" >
+		
+            <ImageButton
+				android:id="@+id/buttonNotificationQuit"
+				android:layout_width="@dimen/notificationButtonsSize"
+				android:layout_height="@dimen/notificationButtonsSize"
+				android:background="@android:color/transparent"
+				android:src="@drawable/quit"
+				android:paddingRight="10dp" />
+			<ImageButton
+				android:id="@+id/buttonNotificationPrevious"
+				android:layout_width="@dimen/notificationButtonsSize"
+				android:layout_height="@dimen/notificationButtonsSize"
+				android:background="@android:color/transparent"
+				android:src="@drawable/previous" />
+			<ImageButton
+				android:id="@+id/buttonNotificationPlayPause"
+				android:layout_width="@dimen/notificationButtonsSize"
+				android:layout_height="@dimen/notificationButtonsSize"
+				android:background="@android:color/transparent"
+				android:src="@drawable/play" />
+			<ImageButton
+				android:id="@+id/buttonNotificationNext"
+				android:layout_width="@dimen/notificationButtonsSize"
+				android:layout_height="@dimen/notificationButtonsSize"
+				android:background="@android:color/transparent"
+				android:src="@drawable/next" />
+		       
+		</LinearLayout>
+       
+    </LinearLayout>
+
+</LinearLayout>
