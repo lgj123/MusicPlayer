@@ -79,6 +79,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
         buttonSearch.setOnClickListener(this);
         listViewSearch = (ListView)findViewById(R.id.listViewSearch);
         listViewSearch.setOnItemClickListener(this);
+        registerForContextMenu(listViewSearch);
         
         application = (MusicPlayerApplication)getApplication();
         lastSearch = application.getLastSearch();
@@ -117,6 +118,36 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+        int position = ((AdapterContextMenuInfo)menuInfo).position;
+        SearchResultsArrayAdapter adapter = (SearchResultsArrayAdapter)listViewSearch.getAdapter();
+        Object item = adapter.getItem(position);
+
+        super.onCreateContextMenu(menu, view, menuInfo);
+
+        menu.setHeaderTitle(R.string.addToPlaylist);
+        ArrayList<Playlist> playlists = Playlists.getPlaylists();
+        for(int i=0; i<playlists.size(); i++) {
+            Playlist playlist = playlists.get(i);
+            menu.add(ContextMenu.NONE, i, i, playlist.getName());
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        if(info==null) return true;
+
+        SearchResultsArrayAdapter adapter = (SearchResultsArrayAdapter)listViewSearch.getAdapter();
+        BrowserSong song = adapter.getItem(info.position);
+
+        ArrayList<Playlist> playlists = Playlists.getPlaylists();
+        playlists.get(item.getItemId()).addSong(song);
+
+        return true;
+    }
 
 	@Override
 	public void onClick(View view) {
