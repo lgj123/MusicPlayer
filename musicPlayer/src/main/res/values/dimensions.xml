@@ -22,7 +22,7 @@
 	<dimen name="listImageSize">40dp</dimen>
 	<dimen name="songImageSize">80dp</dimen>
 	
-	<dimen name="notificationHeight">90dp</dimen>
+	<dimen name="notificationHeight">100dp</dimen>
 	<dimen name="notificationImageSize">90dp</dimen>
-	<dimen name="notificationButtonsSize">50dp</dimen>
+	<dimen name="notificationButtonsSize">60dp</dimen>
 </resources>
