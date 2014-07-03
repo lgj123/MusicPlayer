@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 Andrea De Cesare
+ * Copyright 2012-2014 Andrea De Cesare
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import com.andreadec.musicplayer.database.*;
 
 public class SearchActivity extends Activity implements OnClickListener, OnItemClickListener, OnKeyListener {
 	private EditText editTextSearch;
-	private Button buttonSearch;
+	private ImageButton buttonSearch;
 	private ListView listViewSearch;
 	private SharedPreferences preferences;
 	private MusicPlayerApplication application;
@@ -75,7 +75,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
         
         editTextSearch = (EditText)findViewById(R.id.editTextSearch);
         editTextSearch.setOnKeyListener(this);
-        buttonSearch = (Button)findViewById(R.id.buttonSearch);
+        buttonSearch = (ImageButton)findViewById(R.id.buttonSearch);
         buttonSearch.setOnClickListener(this);
         listViewSearch = (ListView)findViewById(R.id.listViewSearch);
         listViewSearch.setOnItemClickListener(this);

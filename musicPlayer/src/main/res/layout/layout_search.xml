@@ -28,7 +28,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="2dp" >
+        android:layout_margin="2dp"
+        android:gravity="center">
 
         <EditText
             android:id="@+id/editTextSearch"
@@ -39,11 +40,13 @@
             android:singleLine="true"
             android:imeOptions="actionSearch" />
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search" />
+            android:contentDescription="@string/search"
+            android:src="@drawable/search"
+            android:background="@drawable/orange_button"/>
 
     </LinearLayout>
 
