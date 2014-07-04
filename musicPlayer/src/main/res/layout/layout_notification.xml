@@ -39,14 +39,17 @@
 	        android:id="@+id/textViewArtist"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="@string/app_name" />
+	        android:text="@string/app_name"
+            android:paddingTop="5dp" />
         
         <TextView
 	        android:id="@+id/textViewTitle"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" />
+	        android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
         
         <LinearLayout
+            android:paddingTop="5dp"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="horizontal"
@@ -54,29 +57,21 @@
 		
             <ImageButton
 				android:id="@+id/buttonNotificationQuit"
-				android:layout_width="@dimen/notificationButtonsSize"
-				android:layout_height="@dimen/notificationButtonsSize"
-				android:background="@android:color/transparent"
 				android:src="@drawable/quit"
-				android:paddingRight="10dp" />
+				android:paddingRight="10dp"
+                style="@style/notificationButton"/>
 			<ImageButton
 				android:id="@+id/buttonNotificationPrevious"
-				android:layout_width="@dimen/notificationButtonsSize"
-				android:layout_height="@dimen/notificationButtonsSize"
-				android:background="@android:color/transparent"
-				android:src="@drawable/previous" />
+				android:src="@drawable/previous"
+                style="@style/notificationButton" />
 			<ImageButton
 				android:id="@+id/buttonNotificationPlayPause"
-				android:layout_width="@dimen/notificationButtonsSize"
-				android:layout_height="@dimen/notificationButtonsSize"
-				android:background="@android:color/transparent"
-				android:src="@drawable/play" />
+				android:src="@drawable/play"
+                style="@style/notificationButton" />
 			<ImageButton
 				android:id="@+id/buttonNotificationNext"
-				android:layout_width="@dimen/notificationButtonsSize"
-				android:layout_height="@dimen/notificationButtonsSize"
-				android:background="@android:color/transparent"
-				android:src="@drawable/next" />
+				android:src="@drawable/next"
+                style="@style/notificationButton" />
 		       
 		</LinearLayout>
        

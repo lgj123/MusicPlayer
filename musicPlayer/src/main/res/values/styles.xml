@@ -18,7 +18,6 @@
 
 <resources>
 	<style name="AppTheme" parent="android:Theme.Light" />
-	<style name="MySeekBar" parent="android:Widget.Holo.SeekBar" />
 	<style name="card">
 	    <item name="android:background">@drawable/card</item>
 	    <item name="android:layout_marginLeft">6dp</item>
@@ -26,4 +25,11 @@
 		<item name="android:layout_marginTop">4dp</item>
 		<item name="android:layout_marginBottom">4dp</item>
 	</style>
+    <style name="notificationButton">
+        <item name="android:layout_width">@dimen/notificationButtonsSize</item>
+        <item name="android:layout_height">@dimen/notificationButtonsSize</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">@dimen/notificationButtonsPadding</item>
+    </style>
 </resources>

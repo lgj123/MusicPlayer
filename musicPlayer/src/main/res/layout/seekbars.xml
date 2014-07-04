@@ -42,8 +42,7 @@
 			android:layout_marginBottom="5dp"
 			android:layout_marginLeft="10dp"
 			android:layout_marginRight="10dp"
-			android:layout_toLeftOf="@id/imageButtonShowSeekbar2"
-			style="@style/MySeekBar" />
+			android:layout_toLeftOf="@id/imageButtonShowSeekbar2" />
 	</RelativeLayout>
 	<SeekBar
 		android:id="@+id/seekBar2"
@@ -54,7 +53,6 @@
 		android:layout_marginLeft="10dp"
 		android:layout_marginRight="10dp"
 		android:layout_toLeftOf="@id/imageButtonShowSeekbar2"
-		style="@style/MySeekBar"
 		android:visibility="gone" />
 
 </LinearLayout>
