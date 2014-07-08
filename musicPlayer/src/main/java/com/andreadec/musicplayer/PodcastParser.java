@@ -110,12 +110,12 @@ public class PodcastParser {
 		return episodes;
 	}
 	
-	public byte[] downloadImage() {
+	public byte[] downloadImage(int listImageSize) {
 		try {
 			URLConnection connection = new URL(imageUrl).openConnection();
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
 			InputStream input = connection.getInputStream();
-			Bitmap bitmap = BitmapFactory.decodeStream(input);
+			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeStream(input), listImageSize, listImageSize, true);
 			bitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
 			return output.toByteArray();
 		} catch(Exception e) {

@@ -376,7 +376,8 @@ public class PodcastsFragment extends MusicPlayerFragment implements OnItemClick
 			boolean ok = parser.parse(url);
 			if(!ok) return false;
 			name = parser.getTitle();
-			image = parser.downloadImage();
+            int listImageSize = (int)getResources().getDimension(R.dimen.listImageSize);
+			image = parser.downloadImage(listImageSize);
 			return true;
 		}
 		@Override
