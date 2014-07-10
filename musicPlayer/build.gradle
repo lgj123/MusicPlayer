@@ -10,6 +10,10 @@ android {
         targetSdkVersion 19
     }
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix " DEBUG"
+        }
         release {
             runProguard true
         }

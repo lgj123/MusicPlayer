@@ -161,6 +161,7 @@ public class MusicService extends Service implements OnCompletionListener {
             	String action = intent.getAction();
             	if(action.equals("com.andreadec.musicplayer.quit")) {
             		sendBroadcast(new Intent("com.andreadec.musicplayer.quitactivity"));
+                    sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
             		stopSelf();
             		return;
             	} else if(action.equals("com.andreadec.musicplayer.previous")) {
