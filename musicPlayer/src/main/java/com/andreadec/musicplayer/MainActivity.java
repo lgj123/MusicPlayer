@@ -473,24 +473,26 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
     
     /* Called after the service has been bounded. */
     private void startRoutine() {
-    	updatePlayingItem();
     	updateExtendedMenu();
     	
     	// Opens the song from the search, if any
     	if(searchSong!=null) {
-            boolean ok = musicService.playItem(searchSong);
-            if (!ok) Utils.showMessageDialog(this, R.string.errorSong, R.string.errorSongMessage);
+            playItem(searchSong);
             gotoPlayingItemPosition();
     		searchSong = null;
-    	}
+    	} else {
+            updatePlayingItem();
+        }
     	
     	// Opens the song from the intent, if necessary
     	if(intentFile!=null) {
     		BrowserSong song = new BrowserSong(intentFile);
     		playItem(song);
     		intentFile = null;
-    	}
-    	
+    	} else {
+            updatePlayingItem();
+        }
+
     	// Starts the thread to update the seekbar and position information
     	if(startPollingThread) startPollingThread();
     }
