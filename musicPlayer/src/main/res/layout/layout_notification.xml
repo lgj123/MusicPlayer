@@ -58,7 +58,7 @@
             <ImageButton
 				android:id="@+id/buttonNotificationQuit"
 				android:src="@drawable/quit"
-				android:paddingRight="10dp"
+				android:layout_marginRight="10dp"
                 style="@style/notificationButton"/>
 			<ImageButton
 				android:id="@+id/buttonNotificationPrevious"
