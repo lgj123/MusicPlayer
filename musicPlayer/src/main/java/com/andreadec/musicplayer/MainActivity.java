@@ -380,7 +380,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	    	seekBar1.setProgress(musicService.getCurrentPosition());
 	    	seekBar1.setClickable(true);
 	    	isLengthAvailable = playingItem.isLengthAvailable();
-	    	seekBar2.setVisibility(View.GONE);
 	    	if(isLengthAvailable) {
 	    		int duration = musicService.getDuration();
 	    		songDurationString = "/" + Utils.formatTime(duration);
@@ -389,6 +388,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	    			imageButtonShowSeekbar2.setVisibility(View.VISIBLE);
 	    			imageButtonShowSeekbar2.setImageResource(R.drawable.expand);
 	    		} else {
+                    seekBar2.setVisibility(View.GONE);
 	    			imageButtonShowSeekbar2.setVisibility(View.GONE);
 	    		}
 	    	} else {
