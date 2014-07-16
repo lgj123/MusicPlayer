@@ -27,7 +27,6 @@ import com.andreadec.musicplayer.*;
 
 public class PlaylistArrayAdapter extends MusicListArrayAdapter {
 	private PlaylistSong playingSong;
-	private boolean showSongImage;
 	private LruCache<String,Bitmap> imagesCache;
 	private Drawable songImage;
 	private final static int TYPE_ACTION=0, TYPE_PLAYLIST=1, TYPE_SONG=2;
@@ -36,7 +35,6 @@ public class PlaylistArrayAdapter extends MusicListArrayAdapter {
 		super(activity, values);
 		this.playingSong = playingSong;
 		this.imagesCache = activity.getImagesCache();
-		showSongImage = activity.getShowSongImage();
 		songImage = activity.getResources().getDrawable(R.drawable.audio);
 	}
 	
@@ -102,19 +100,17 @@ public class PlaylistArrayAdapter extends MusicListArrayAdapter {
 				viewHolder.image.setImageResource(R.drawable.play_orange);
 			} else {
 				viewHolder.card.setBackgroundResource(R.drawable.card);
-				if(showSongImage) {
-					viewHolder.image.setImageDrawable(songImage);
-					if(song.hasImage()) {
-						Bitmap image;
-						synchronized(imagesCache) {
-							image = imagesCache.get(song.getPlayableUri());
-						}
-						if(image!=null) {
-							viewHolder.image.setImageBitmap(image);
-						}
-						else new ImageLoaderTask(song, viewHolder.image, imagesCache, listImageSize).execute();
-					}
-				}
+                viewHolder.image.setImageDrawable(songImage);
+                if(song.hasImage()) {
+                    Bitmap image;
+                    synchronized(imagesCache) {
+                        image = imagesCache.get(song.getPlayableUri());
+                    }
+                    if(image!=null) {
+                        viewHolder.image.setImageBitmap(image);
+                    }
+                    else new ImageLoaderTask(song, viewHolder.image, imagesCache, listImageSize).execute();
+                }
 			}
 		}
 		

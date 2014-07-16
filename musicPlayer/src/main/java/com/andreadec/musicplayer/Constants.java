@@ -42,7 +42,6 @@ public class Constants {
 	public final static String PREFERENCE_OPENLASTPAGEONSTART = "openLastPageOnStart";
 	public final static String PREFERENCE_RESTARTPLAYBACKAFTERPHONECALL = "restartPlaybackAfterPhoneCall";
 	public final static String PREFERENCE_PODCASTSDIRECTORY = "podcastsDirectory";
-	public final static String PREFERENCE_SHOWSONGIMAGE = "showSongImage";
 	public final static String PREFERENCE_ENABLEBACKDOUBLEPRESSTOQUITAPP = "enableBackDoublePressToQuitApp";
 	public final static String PREFERENCE_SHOWRELATIVEPATHUNDERBASEDIRECTORY = "showRelativePathUnderBaseDirectory";
 	public final static String PREFERENCE_TRANSLUCENTSTATUSBAR = "translucentStatusBar";

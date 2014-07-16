@@ -17,7 +17,7 @@
 -->
 
 <resources>
-    <string name="app_name">Music Player</string>
+    <!--<string name="app_name">Music Player</string>-->
     <string name="webRadio">Web Radio</string>
 	<string name="quit">Quit</string>
 	<string name="quitApp">Quit app</string>
@@ -148,7 +148,6 @@
 	<string name="gotoBaseFolder">Go to base folder</string>
 	<string name="importExport">Import/export</string>
 	<string name="stopDownload">Stop download</string>
-	<string name="showSongImage">Show song image</string>
 	<string name="pressAgainToQuitApp">Press again to quit app</string>
 	<string name="enableBackDoublePressToQuitApp">Back button to close app</string>
 	<string name="enableBackDoublePressToQuitAppSummary">Use double tap on back button to close the app.</string>

@@ -71,7 +71,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	private boolean pollingThreadRunning; // true if thread is active, false otherwise
 	private boolean startPollingThread = true;
 	private boolean showRemainingTime = false;
-	private boolean showSongImage;
 	
 	// Variables used to reduce computing on polling thread
 	private boolean isLengthAvailable = false;
@@ -117,7 +116,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 					editor.putBoolean(Constants.PREFERENCE_SHOWHELPOVERLAYMAINACTIVITY, false);
 					editor.apply();
 				}
-             	});
+            });
         	setContentView(frameLayout);
         } else {
         	setContentView(R.layout.layout_main);
@@ -211,7 +210,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
         seekBar2.setOnSeekBarChangeListener(this);
         textViewTime.setOnClickListener(this);
         
-        showSongImage = preferences.getBoolean(Constants.PREFERENCE_SHOWSONGIMAGE, Constants.DEFAULT_SHOWSONGIMAGE);
         imagesCache = new LruCache<String,Bitmap>(Constants.IMAGES_CACHE_SIZE);
         
         serviceIntent = new Intent(this, MusicService.class);
@@ -398,24 +396,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	    		seekBar1.setVisibility(View.GONE);
 	    		imageButtonShowSeekbar2.setVisibility(View.GONE);
 	    	}
-	    	
-	    	if(showSongImage) {
-	    		/*Bitmap image = playingItem.getImage();
-	    		if(image==null) {
-	    			imageViewSongImage.setImageResource(R.drawable.ic_launcher);
-	    			imageViewSongImage.setVisibility(View.GONE);
-	    		} else {
-	    			imageViewSongImage.setImageBitmap(image);
-	    			imageViewSongImage.setVisibility(View.VISIBLE);
-	    		}*/
-	    		imageViewSongImage.setVisibility(View.GONE);
-	    		int imageSize = (int)getResources().getDimension(R.dimen.songImageSize);
-	    		ImageLoaderTask imageLoader = new ImageLoaderTask(playingItem, imageViewSongImage, imagesCache, imageSize);
-	    		imageLoader.execute();
-	    	} else {
-	    		imageViewSongImage.setImageResource(R.drawable.ic_launcher);
-	    		imageViewSongImage.setVisibility(View.GONE);
-	    	}
+
+            imageViewSongImage.setVisibility(View.GONE);
+            int imageSize = (int)getResources().getDimension(R.dimen.songImageSize);
+            ImageLoaderTask imageLoader = new ImageLoaderTask(playingItem, imageViewSongImage, imagesCache, imageSize);
+            imageLoader.execute();
     	} else {
     		// No song loaded
     		textViewTitle.setText(R.string.noSong);
@@ -493,7 +478,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
     	
     	// Opens the song from the search, if any
     	if(searchSong!=null) {
-    		playSongFromSearch(searchSong);
+            boolean ok = musicService.playItem(searchSong);
+            if (!ok) Utils.showMessageDialog(this, R.string.errorSong, R.string.errorSongMessage);
+            gotoPlayingItemPosition();
     		searchSong = null;
     	}
     	
@@ -693,7 +680,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 			File songDirectory = new File(song.getPlayableUri()).getParentFile();
 			BrowserDirectory browserDirectory = new BrowserDirectory(songDirectory);
 			song.setBrowser(browserDirectory);
-			//playSongFromSearch(song);
 			searchSong = song;
 		}
 	}
@@ -706,17 +692,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	
 	public void playItem(PlayableItem item) {
 		boolean ok = musicService.playItem(item);
-		if(!ok) {
-			Utils.showMessageDialog(this, R.string.errorSong, R.string.errorSongMessage);
-		}
-	}
-	
-	public void playSongFromSearch(BrowserSong song) {
-		boolean ok = musicService.playItem(song);
-		if (!ok) {
-			Utils.showMessageDialog(this, R.string.errorSong, R.string.errorSongMessage);
-		}
-		gotoPlayingItemPosition();
+		if(!ok) Utils.showMessageDialog(this, R.string.errorSong, R.string.errorSongMessage);
 	}
 	
 	public void playRadio(Radio radio) {
@@ -1017,9 +993,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 		builder.show();
 	}
 	
-	public boolean getShowSongImage() {
-		return showSongImage;
-	}
 	public LruCache<String,Bitmap> getImagesCache() {
 		return imagesCache;
 	}

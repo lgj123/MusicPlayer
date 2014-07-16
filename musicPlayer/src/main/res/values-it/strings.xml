@@ -17,7 +17,7 @@
 -->
 
 <resources>
-    <string name="app_name">Music Player</string>
+    <!--<string name="app_name">Music Player</string>-->
     <string name="webRadio">Radio Web</string>
 	<string name="quit">Esci</string>
 	<string name="quitApp">Chiudi app</string>
@@ -147,7 +147,6 @@
 	<string name="errorInvalidName">Deve essere inserito un nome!</string>
 	<string name="gotoBaseFolder">Vai alla cartella base</string>
 	<string name="stopDownload">Interrompi download</string>
-	<string name="showSongImage">Mostra immagine brano</string>
 	<string name="pressAgainToQuitApp">Premi nuovamente per uscire</string>
 	<string name="enableBackDoublePressToQuitApp">Tasto indietro per uscire</string>
 	<string name="enableBackDoublePressToQuitAppSummary">Chiudi l\'applicazione premendo due volte il tasto indietro.</string>

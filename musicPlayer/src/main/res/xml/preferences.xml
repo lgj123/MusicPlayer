@@ -35,10 +35,6 @@
     	    android:key="titleLines"
     	    android:defaultValue="1" />
     	<CheckBoxPreference
-    	    android:key="showSongImage"
-    	    android:title="@string/showSongImage"
-    	    android:defaultValue="true" />
-    	<CheckBoxPreference
     	    android:key="showRelativePathUnderBaseDirectory"
     	    android:title="@string/showRelativePathUnderBaseDirectory"
     	    android:summary="@string/showRelativePathUnderBaseDirectorySummary"
