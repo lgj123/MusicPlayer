@@ -22,11 +22,11 @@ So I decided to write this application for my personal use and to publish it hop
 
 
 ## Screenshots
-<img src="https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer1.png" style="padding:10px;"/>
-<img src="https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer2.png" style="padding:10px;"/>
-<img src="https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer3.png" style="padding:10px;"/>
-<img src="https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer4.png" style="padding:10px;"/>
-<img src="https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer5.png" style="padding:10px;"/>
+![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer1.png)
+![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer2.png)
+![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer3.png)
+![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer4.png)
+![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer5.png)
 
 
 ## Required permissions
