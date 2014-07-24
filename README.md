@@ -6,6 +6,7 @@ Music player application for Android.
 There are many good music players for Android but I couldn't find one which let me organize my music as I used to, as files into folders.
 So I decided to write this application for my personal use and to publish it hoping it could be useful for other people too.
 
+
 ## Features
 - Easily browse songs in folders
 - Manage playlists
@@ -17,6 +18,15 @@ So I decided to write this application for my personal use and to publish it hop
 - Listen to podcasts
 - Possibility to execute commands shaking the device
 - Remote Control support (Android 4.1+ only)
+- App is compatible with Android 2.3.3+
+
+
+## Screenshots
+![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer1.png)
+![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer2.png)
+![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer3.png)
+![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer4.png)
+![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer5.png)
 
 
 ## Required permissions
@@ -98,7 +108,7 @@ Some icons are from the [Tango Desktop Project](http://tango.freedesktop.org), r
 ## Special thanks
 I'd like to thank the following people who helped me during the development:
 
-- Spierpa
+- Pierpaolo
 - Matteo
 
 
