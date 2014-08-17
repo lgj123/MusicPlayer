@@ -29,6 +29,7 @@ import android.media.audiofx.*;
 import android.os.*;
 import android.preference.*;
 import android.support.v4.app.*;
+import android.support.v4.util.LruCache;
 import android.telephony.*;
 import android.view.KeyEvent;
 import android.widget.RemoteViews;
@@ -380,6 +381,16 @@ public class MusicService extends Service implements OnCompletionListener {
 	
 	/* Updates the notification and the remote control client. */
 	private void updateNotificationMessage() {
+        Bitmap image = null;
+        if(currentPlayingItem!=null && currentPlayingItem.hasImage()) {
+            LruCache<String, Bitmap> imagesCache = ((MusicPlayerApplication) getApplication()).imagesCache;
+            synchronized(imagesCache) {
+                image = imagesCache.get(currentPlayingItem.getPlayableUri());
+                image = image.copy(image.getConfig(), true); // Necessary to avoid recycled bitmap to be used.
+            }
+            if(image==null) image = currentPlayingItem.getImage();
+        }
+
 		/* Update remote control client */
 		if(Build.VERSION.SDK_INT>=14) {
 			if(currentPlayingItem==null) {
@@ -396,7 +407,7 @@ public class MusicService extends Service implements OnCompletionListener {
 				metadataEditor.putString(MediaMetadataRetriever.METADATA_KEY_ARTIST, currentPlayingItem.getArtist());
 				metadataEditor.putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, getDuration());
 				if(currentPlayingItem.hasImage()) {
-					metadataEditor.putBitmap(METADATA_KEY_ARTWORK, currentPlayingItem.getImage());
+					metadataEditor.putBitmap(METADATA_KEY_ARTWORK, image);
 				} else {
 					metadataEditor.putBitmap(METADATA_KEY_ARTWORK, icon.copy(icon.getConfig(), false));
 				}
@@ -422,9 +433,6 @@ public class MusicService extends Service implements OnCompletionListener {
 			notificationMessage += currentPlayingItem.getTitle();
 		}
 		
-		/*notificationBuilder.addAction(R.drawable.previous, getResources().getString(R.string.previous), previousPendingIntent);
-		notificationBuilder.addAction(playPauseIcon, getResources().getString(playPauseString), playpausePendingIntent);
-		notificationBuilder.addAction(R.drawable.next, getResources().getString(R.string.next), nextPendingIntent);*/
 		notificationBuilder.setContentTitle(getResources().getString(R.string.app_name));
 		notificationBuilder.setContentText(notificationMessage);
 		
@@ -439,7 +447,6 @@ public class MusicService extends Service implements OnCompletionListener {
 		} else {
 			notificationLayout.setTextViewText(R.id.textViewArtist, currentPlayingItem.getArtist());
 			notificationLayout.setTextViewText(R.id.textViewTitle, currentPlayingItem.getTitle());
-			Bitmap image = currentPlayingItem.getImage();
 			if(image!=null) {
 				notificationLayout.setImageViewBitmap(R.id.imageViewNotification, image);
 			} else {

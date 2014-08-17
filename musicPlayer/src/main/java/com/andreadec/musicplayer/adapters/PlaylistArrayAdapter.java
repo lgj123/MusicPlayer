@@ -34,7 +34,7 @@ public class PlaylistArrayAdapter extends MusicListArrayAdapter {
 	public PlaylistArrayAdapter(MainActivity activity, ArrayList<Object> values, PlaylistSong playingSong) {
 		super(activity, values);
 		this.playingSong = playingSong;
-		this.imagesCache = activity.getImagesCache();
+		this.imagesCache = ((MusicPlayerApplication)activity.getApplication()).imagesCache;
 		songImage = activity.getResources().getDrawable(R.drawable.audio);
 	}
 	

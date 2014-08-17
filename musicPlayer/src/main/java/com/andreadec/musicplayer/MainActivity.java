@@ -81,8 +81,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	private MusicPlayerFragment currentFragment;
 	private FragmentManager fragmentManager;
 	
-	private LruCache<String,Bitmap> imagesCache;
-	
 	private String intentFile;
 	private BrowserSong searchSong;
 	
@@ -209,8 +207,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
         seekBar1.setClickable(false);
         seekBar2.setOnSeekBarChangeListener(this);
         textViewTime.setOnClickListener(this);
-        
-        imagesCache = new LruCache<String,Bitmap>(Constants.IMAGES_CACHE_SIZE);
         
         serviceIntent = new Intent(this, MusicService.class);
         
@@ -399,7 +395,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 
             imageViewSongImage.setVisibility(View.GONE);
             int imageSize = (int)getResources().getDimension(R.dimen.songImageSize);
-            ImageLoaderTask imageLoader = new ImageLoaderTask(playingItem, imageViewSongImage, imagesCache, imageSize);
+            ImageLoaderTask imageLoader = new ImageLoaderTask(playingItem, imageViewSongImage, ((MusicPlayerApplication)getApplication()).imagesCache, imageSize);
             imageLoader.execute();
     	} else {
     		// No song loaded
@@ -993,10 +989,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 			@Override public void onNothingSelected(AdapterView<?> parent) {}
 		});
 		builder.show();
-	}
-	
-	public LruCache<String,Bitmap> getImagesCache() {
-		return imagesCache;
 	}
 	
 	private void showItemInfo(PlayableItem item) {

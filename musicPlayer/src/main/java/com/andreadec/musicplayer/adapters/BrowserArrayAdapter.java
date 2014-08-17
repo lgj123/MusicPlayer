@@ -36,7 +36,7 @@ public class BrowserArrayAdapter extends MusicListArrayAdapter {
 	public BrowserArrayAdapter(MainActivity activity, ArrayList<Object> values, BrowserSong playingSong) {
 		super(activity, values);
 		this.playingSong = playingSong;
-		this.imagesCache = activity.getImagesCache();
+		this.imagesCache = ((MusicPlayerApplication)activity.getApplication()).imagesCache;
 		songImage = activity.getResources().getDrawable(R.drawable.audio);
 	}
 	
