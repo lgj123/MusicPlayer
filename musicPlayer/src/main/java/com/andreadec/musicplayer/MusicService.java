@@ -386,7 +386,7 @@ public class MusicService extends Service implements OnCompletionListener {
             LruCache<String, Bitmap> imagesCache = ((MusicPlayerApplication) getApplication()).imagesCache;
             synchronized(imagesCache) {
                 image = imagesCache.get(currentPlayingItem.getPlayableUri());
-                image = image.copy(image.getConfig(), true); // Necessary to avoid recycled bitmap to be used.
+                if(image!=null) image = image.copy(image.getConfig(), true); // Necessary to avoid recycled bitmap to be used.
             }
             if(image==null) image = currentPlayingItem.getImage();
         }
