@@ -162,6 +162,8 @@
 	<string name="showPlaybackControls">Mostra controlli riproduzione</string>
 	<string name="showPlaybackControlsSummary">Mostra i pulsanti per controllare la riproduzione.</string>
 	<string name="repeatLastSearch">Ripeti l\'ultima ricerca</string>
+    <string name="reloadSongInfo">Ricarica informazioni brano</string>
+    <string name="reloadSongInfoDone">Informazioni aggiornate</string>
 	
 	<!-- Podcasts -->
 	<string name="podcast">Podcast</string>

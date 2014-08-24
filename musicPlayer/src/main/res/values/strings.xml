@@ -163,6 +163,8 @@
 	<string name="showPlaybackControls">Show playback controls</string>
 	<string name="showPlaybackControlsSummary">Show buttons to control playback.</string>
 	<string name="repeatLastSearch">Repeat last search</string>
+    <string name="reloadSongInfo">Reload song info</string>
+    <string name="reloadSongInfoDone">Song info reloaded</string>
 	
 	<!-- Podcasts -->
 	<string name="podcast">Podcast</string>

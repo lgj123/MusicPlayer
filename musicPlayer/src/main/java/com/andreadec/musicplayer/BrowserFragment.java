@@ -31,7 +31,7 @@ import android.widget.AdapterView.*;
 import com.andreadec.musicplayer.adapters.*;
 
 public class BrowserFragment extends MusicPlayerFragment implements OnItemClickListener {
-	private final static int MENU_SETASBASEFOLDER = -1, MENU_ADDFOLDERTOPLAYLIST = -2;
+	private final static int MENU_SETASBASEFOLDER = -1, MENU_ADDTOPLAYLIST = -2, MENU_RELOADSONGINFO = -3;
 	private ListView listViewBrowser;
 	private BrowserArrayAdapter browserArrayAdapter;
 	private SharedPreferences preferences;
@@ -62,59 +62,60 @@ public class BrowserFragment extends MusicPlayerFragment implements OnItemClickL
 		if(item instanceof String) return;
 		
 		super.onCreateContextMenu(menu, view, menuInfo);
-		
-		if(item instanceof File) {
-			menu.add(ContextMenu.NONE, MENU_SETASBASEFOLDER, 0, activity.getResources().getString(R.string.setAsBaseFolder));
-			ArrayList<Playlist> playlists = Playlists.getPlaylists();
-			if(playlists.size()>0) {
-				SubMenu playlistMenu = menu.addSubMenu(ContextMenu.NONE, MENU_ADDFOLDERTOPLAYLIST, 1, R.string.addFolderToPlaylist);
-				playlistMenu.setHeaderTitle(R.string.addToPlaylist);
-				for(int i=0; i<playlists.size(); i++) {
-					Playlist playlist = playlists.get(i);
-					playlistMenu.add(ContextMenu.NONE, i, i, playlist.getName());
-				}
-			}
-		} else if(item instanceof BrowserSong) {
-			menu.setHeaderTitle(R.string.addToPlaylist);
-			ArrayList<Playlist> playlists = Playlists.getPlaylists();
-			for(int i=0; i<playlists.size(); i++) {
-				Playlist playlist = playlists.get(i);
-				menu.add(ContextMenu.NONE, i, i, playlist.getName());
-			}
-		}
+
+        if(item instanceof File) {
+            menu.add(ContextMenu.NONE, MENU_SETASBASEFOLDER, ContextMenu.NONE, activity.getResources().getString(R.string.setAsBaseFolder));
+        }
+
+        ArrayList<Playlist> playlists = Playlists.getPlaylists();
+        if(playlists.size()>0) {
+            int message = item instanceof File ? R.string.addFolderToPlaylist : R.string.addToPlaylist;
+            SubMenu playlistMenu = menu.addSubMenu(ContextMenu.NONE, MENU_ADDTOPLAYLIST, ContextMenu.NONE, message);
+            playlistMenu.setHeaderTitle(R.string.addToPlaylist);
+            for(int i=0; i<playlists.size(); i++) {
+                Playlist playlist = playlists.get(i);
+                playlistMenu.add(ContextMenu.NONE, i, i, playlist.getName());
+            }
+        }
+
+        if(item instanceof BrowserSong) {
+            menu.add(ContextMenu.NONE, MENU_RELOADSONGINFO, ContextMenu.NONE, activity.getResources().getString(R.string.reloadSongInfo));
+        }
 	}
 	
-	int oldPosition;
+	int mainMenuItem, listPosition;
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-		int position;
-		if(info!=null) {
-			position = info.position;
-			oldPosition = position;
-		} else {
-			position = oldPosition;
-		}
-		Object listItem = browserArrayAdapter.getItem(position);
-		
-		if(listItem instanceof String) return true;
-		
-		ArrayList<Playlist> playlists = Playlists.getPlaylists();
-		
-		if(listItem instanceof BrowserSong) {
-			BrowserSong song = (BrowserSong)listItem;
-			playlists.get(item.getItemId()).addSong(song);
-		} else if(listItem instanceof File) {
-			File folder = (File)listItem;
-			switch(item.getItemId()) {
-			case MENU_SETASBASEFOLDER:
-				activity.setBaseFolder(folder);
-				break;
-			case MENU_ADDFOLDERTOPLAYLIST:
-				addFolderToPlaylist(playlists.get(item.getItemId()), folder);
-				break;
-			}
-		}
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        if(info!=null) { // Click on an item of the main menu
+            mainMenuItem = item.getItemId(); // Save which item was clicked
+            listPosition = info.position; // Save the element of the songs' list choosen
+            Object listItem = browserArrayAdapter.getItem(listPosition);
+            switch(mainMenuItem) {
+                case MENU_SETASBASEFOLDER:
+                    activity.setBaseFolder((File)listItem);
+                    break;
+                case MENU_RELOADSONGINFO:
+                    BrowserDirectory.reloadSongFromDisk((BrowserSong)listItem);
+                    Toast.makeText(activity, R.string.reloadSongInfoDone, Toast.LENGTH_SHORT).show();
+                    updateListView();
+                    break;
+            }
+        } else { // Click on an item of the submenu
+            System.out.println(mainMenuItem);
+            Object listItem = browserArrayAdapter.getItem(listPosition);
+            switch(mainMenuItem) {
+                case MENU_ADDTOPLAYLIST:
+                    ArrayList<Playlist> playlists = Playlists.getPlaylists();
+                    int selectedPlaylist = item.getItemId();
+                    if(listItem instanceof File) {
+                        addFolderToPlaylist(playlists.get(selectedPlaylist), (File)listItem);
+                    } else if(listItem instanceof BrowserSong) {
+                        playlists.get(selectedPlaylist).addSong((BrowserSong)listItem);
+                    }
+                    break;
+            }
+        }
 		
 		return true;
 	}

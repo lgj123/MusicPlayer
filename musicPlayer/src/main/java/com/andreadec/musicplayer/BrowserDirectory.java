@@ -100,7 +100,7 @@ public class BrowserDirectory {
 		
 		Collections.sort(songs, new BrowserSongsComparator(sortingMethod));
 		
-		if(songsToInsertInDB.size()>0) {
+		/*if(songsToInsertInDB.size()>0) {
 			new Thread() {
 				public void run() {
 					SongsDatabase songsDatabase2 = new SongsDatabase();
@@ -119,10 +119,54 @@ public class BrowserDirectory {
 					db2.close();
 				}
 			}.start();
-		}
+		}*/
+
+        if(songsToInsertInDB.size()>0) {
+            insertSongsInDB(songsToInsertInDB);
+        }
 		
 		return songs;
 	}
+
+    public static void reloadSongFromDisk(BrowserSong oldSong) {
+        BrowserSong song = new BrowserSong(oldSong.getUri(), oldSong.getBrowserDirectory());
+        insertSongInDB(song);
+    }
+
+    // Insert a single song in database (synchronous function)
+    private static void insertSongInDB(BrowserSong song) {
+        SongsDatabase songsDatabase = new SongsDatabase();
+        SQLiteDatabase db = songsDatabase.getWritableDatabase();
+        insertSongInDBInternal(db, song);
+        db.close();
+    }
+
+    // Insert multiple songs in database (asynchronous function)
+    private static void insertSongsInDB(final LinkedList<BrowserSong> songsToInsertInDB) {
+        new Thread() {
+            public void run() {
+                SongsDatabase songsDatabase = new SongsDatabase();
+                SQLiteDatabase db = songsDatabase.getWritableDatabase();
+                for(BrowserSong song : songsToInsertInDB) {
+                    insertSongInDBInternal(db, song);
+                }
+                db.close();
+            }
+        }.start();
+    }
+
+    // Needs an open database to work with
+    private static void insertSongInDBInternal(SQLiteDatabase db, BrowserSong song) {
+        ContentValues values = new ContentValues();
+        values.put("uri", song.getUri());
+        values.put("artist", song.getArtist());
+        values.put("title", song.getTitle());
+        Integer trackNumber = song.getTrackNumber();
+        if(trackNumber==null) trackNumber=-1;
+        values.put("trackNumber", trackNumber);
+        values.put("hasImage", song.hasImage());
+        db.insertWithOnConflict("Songs", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+    }
 	
 	// Lists all the subfolders of a given directory
 	public ArrayList<File> getSubfoldersInDirectory(File directory) {

@@ -151,6 +151,10 @@ public class BrowserSong implements PlayableItem, Serializable {
 	public boolean isLengthAvailable() {
 		return true;
 	}
+
+    public BrowserDirectory getBrowserDirectory() {
+        return browserDirectory;
+    }
 	
 	@SuppressLint("InlinedApi")
 	@Override
