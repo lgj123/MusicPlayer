@@ -68,11 +68,6 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
         	setContentView(R.layout.layout_search);
         }
         
-        if(Build.VERSION.SDK_INT >= 11) {
-			getActionBar().setHomeButtonEnabled(true);
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-        
         editTextSearch = (EditText)findViewById(R.id.editTextSearch);
         editTextSearch.setOnKeyListener(this);
         buttonSearch = (ImageButton)findViewById(R.id.buttonSearch);
@@ -104,11 +99,6 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			Intent intent = new Intent(this, MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			return true;
 		case R.id.menu_repeatLastSearch:
 			if(lastSearch==null) return true;
 			editTextSearch.setText(lastSearch);

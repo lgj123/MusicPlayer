@@ -61,8 +61,6 @@ public class PreferencesActivity extends PreferenceActivity implements OnPrefere
     	
     	// Translucent system bars are only available on Android 4.4+
     	if(Build.VERSION.SDK_INT < 19) {
-    		//getPreferenceScreen().removePreference(findPreference("translucentStatusBar"));
-    		//getPreferenceScreen().removePreference(findPreference("translucentNavigationBar"));
     		findPreference("translucentStatusBar").setEnabled(false);
     		findPreference("translucentNavigationBar").setEnabled(false);
     	}

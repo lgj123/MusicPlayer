@@ -64,6 +64,7 @@ public class BrowserFragment extends MusicPlayerFragment implements OnItemClickL
 		super.onCreateContextMenu(menu, view, menuInfo);
 
         if(item instanceof File) {
+            menu.setHeaderTitle(((File)item).getName());
             menu.add(ContextMenu.NONE, MENU_SETASBASEFOLDER, ContextMenu.NONE, activity.getResources().getString(R.string.setAsBaseFolder));
         }
 
@@ -79,6 +80,11 @@ public class BrowserFragment extends MusicPlayerFragment implements OnItemClickL
         }
 
         if(item instanceof BrowserSong) {
+            BrowserSong song = (BrowserSong)item;
+            String title = "";
+            if(song.getArtist()!=null) title += song.getArtist()+" - ";
+            if(song.getTitle()!=null) title += song.getTitle();
+            menu.setHeaderTitle(title);
             menu.add(ContextMenu.NONE, MENU_RELOADSONGINFO, ContextMenu.NONE, activity.getResources().getString(R.string.reloadSongInfo));
         }
 	}

@@ -16,18 +16,14 @@
 
 package com.andreadec.musicplayer;
 
-import android.annotation.SuppressLint;
 import android.app.*;
-import android.content.*;
 import android.content.pm.PackageManager.*;
 import android.content.res.*;
 import android.os.*;
 import android.text.Html;
 import android.text.method.*;
-import android.view.*;
 import android.widget.*;
 
-@SuppressLint("NewApi")
 public class AboutActivity extends Activity {
 	private TextView textViewAbout;
 	
@@ -35,10 +31,6 @@ public class AboutActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);       
         setContentView(R.layout.layout_about);
-        if(Build.VERSION.SDK_INT >= 11) {
-			getActionBar().setHomeButtonEnabled(true);
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
         textViewAbout = (TextView)findViewById(R.id.textViewAbout);
         textViewAbout.setMovementMethod(LinkMovementMethod.getInstance());
         Resources resources = getResources();
@@ -82,18 +74,5 @@ public class AboutActivity extends Activity {
         about += "<h2>"+resources.getString(R.string.specialThanks)+"</h2>";
         about += "<p>Spierpa</p>";
         about += "<p>Matteo</p>";
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			Intent intent = new Intent(this, PreferencesActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
 	}
 }
