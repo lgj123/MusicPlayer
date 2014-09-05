@@ -39,6 +39,17 @@
     	    android:title="@string/showRelativePathUnderBaseDirectory"
     	    android:summary="@string/showRelativePathUnderBaseDirectorySummary"
     	    android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="enableGestures"
+            android:title="@string/enableGestures"
+            android:summary="@string/enableGesturesSummary"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="showPlaybackControls"
+            android:title="@string/showPlaybackControls"
+            android:summary="@string/showPlaybackControlsSummary"
+            android:dependency="enableGestures"
+            android:defaultValue="true" />
     </PreferenceCategory>
     
     <PreferenceCategory android:title="@string/startingOptions">
@@ -76,17 +87,6 @@
 	        android:title="@string/enableBackDoublePressToQuitApp"
 	        android:summary="@string/enableBackDoublePressToQuitAppSummary"
 	        android:defaultValue="true" />
-	    <CheckBoxPreference
-			android:key="enableGestures"
-			android:title="@string/enableGestures"
-			android:summary="@string/enableGesturesSummary"
-        	android:defaultValue="false" />
-	    <CheckBoxPreference
-			android:key="showPlaybackControls"
-			android:title="@string/showPlaybackControls"
-			android:summary="@string/showPlaybackControlsSummary"
-			android:dependency="enableGestures"
-        	android:defaultValue="true" />
 	    <Preference
 	        android:key="podcastsDirectory"
 	        android:title="@string/podcastsDirectory"
