@@ -18,12 +18,9 @@ package com.andreadec.musicplayer;
 
 import java.io.*;
 import java.util.*;
-
 import javax.xml.parsers.*;
-
 import org.w3c.dom.*;
 import org.xmlpull.v1.*;
-
 import android.annotation.*;
 import android.app.*;
 import android.content.*;
@@ -66,7 +63,6 @@ public class PreferencesActivity extends PreferenceActivity implements OnPrefere
     	preferenceExport = findPreference("export");
     	preferencePodcastsDirectory = findPreference("podcastsDirectory");
     	
-    	updateCacheSize();
     	updateBaseFolder();
     	
     	preferenceClearCache.setOnPreferenceClickListener(this);
@@ -164,12 +160,6 @@ public class PreferencesActivity extends PreferenceActivity implements OnPrefere
 		return false;
 	}
 	
-	private void updateCacheSize() {
-		File f = getDatabasePath("Songs");
-    	double dbSize = f.length()/1024.0;
-    	preferenceClearCache.setSummary(getResources().getString(R.string.clearCacheSummary, dbSize+""));
-	}
-	
 	private void updateBaseFolder() {
 		String baseFolder = preferences.getString(Constants.PREFERENCE_BASEFOLDER, null);
 		String summary = getResources().getString(R.string.indexBaseFolderSummary) + "\n\n";
@@ -189,7 +179,6 @@ public class PreferencesActivity extends PreferenceActivity implements OnPrefere
 		db.delete("Songs", "", null);
 		db.close();
 		Toast.makeText(this, R.string.cacheCleared, Toast.LENGTH_LONG).show();
-		updateCacheSize();
 	}
 	
 	private void doImport() {

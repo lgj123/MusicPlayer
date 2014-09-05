@@ -101,8 +101,7 @@
             android:defaultValue="true" />
         <Preference
             android:key="clearCache"
-            android:title="@string/clearCache"
-            android:summary="@string/clearCacheSummary" />
+            android:title="@string/clearCache" />
         <Preference
             android:key="indexBaseFolder"
             android:title="@string/indexBaseFolder"

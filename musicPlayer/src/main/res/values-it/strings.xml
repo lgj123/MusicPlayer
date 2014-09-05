@@ -81,7 +81,6 @@
 	<string name="enableCache">Abilita cache</string>
 	<string name="enableCacheSummary">Se abilitato, inserisce le informazioni sui brani all\'interno di una cache per permettere un\'apertura più veloce delle cartelle ed abilitare la ricerca delle canzoni.</string>
 	<string name="clearCache">Svuota cache</string>
-	<string name="clearCacheSummary">Spazio utilizzato: %1$s KB</string>
 	<string name="clearCacheConfirm">Cancellare la cache?</string>
 	<string name="cacheCleared">Cache svuotata!</string>
 	<string name="about">Informazioni</string>

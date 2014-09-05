@@ -81,7 +81,6 @@
 	<string name="enableCache">Enable cache</string>
 	<string name="enableCacheSummary">If enabled, inserts songs\' info into a cache, to speed up loading time and enable songs search.</string>
 	<string name="clearCache">Clear cache</string>
-	<string name="clearCacheSummary">Currently used: %1$s KB</string>
 	<string name="clearCacheConfirm">Clear the cache?</string>
 	<string name="cacheCleared">Cache cleared!</string>
 	<string name="about">About</string>
