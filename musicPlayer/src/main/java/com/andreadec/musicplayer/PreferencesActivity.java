@@ -42,7 +42,7 @@ public class PreferencesActivity extends PreferenceActivity implements OnPrefere
 	
 	private SharedPreferences preferences;
 	private Preference preferenceClearCache, preferenceIndexBaseFolder, preferenceAbout, preferenceImport, preferenceExport, preferencePodcastsDirectory;
-	private Preference preferenceTranslucentStatusBar, preferenceTranslucentNavigationBar, preferenceDisableLockScreen, preferenceEnableGestures, preferenceShowPlaybackControls;
+	private Preference preferenceDisableLockScreen, preferenceEnableGestures, preferenceShowPlaybackControls;
 	
 	private boolean needsRestart;
 	
@@ -58,12 +58,6 @@ public class PreferencesActivity extends PreferenceActivity implements OnPrefere
 		}
     	
     	preferences = PreferenceManager.getDefaultSharedPreferences(this);
-    	
-    	// Translucent system bars are only available on Android 4.4+
-    	if(Build.VERSION.SDK_INT < 19) {
-    		findPreference("translucentStatusBar").setEnabled(false);
-    		findPreference("translucentNavigationBar").setEnabled(false);
-    	}
     	
     	preferenceClearCache = findPreference("clearCache");
     	preferenceIndexBaseFolder = findPreference("indexBaseFolder");
@@ -81,14 +75,10 @@ public class PreferencesActivity extends PreferenceActivity implements OnPrefere
     	preferenceImport.setOnPreferenceClickListener(this);
     	preferenceExport.setOnPreferenceClickListener(this);
     	preferencePodcastsDirectory.setOnPreferenceClickListener(this);
-    	
-    	preferenceTranslucentStatusBar = findPreference("translucentStatusBar");
-    	preferenceTranslucentNavigationBar = findPreference("translucentNavigationBar");
+
     	preferenceDisableLockScreen = findPreference("disableLockScreen");
     	preferenceEnableGestures = findPreference("enableGestures");
     	preferenceShowPlaybackControls = findPreference("showPlaybackControls");
-    	preferenceTranslucentStatusBar.setOnPreferenceChangeListener(this);
-    	preferenceTranslucentNavigationBar.setOnPreferenceChangeListener(this);
     	preferenceDisableLockScreen.setOnPreferenceChangeListener(this);
     	preferenceEnableGestures.setOnPreferenceChangeListener(this);
     	preferenceShowPlaybackControls.setOnPreferenceChangeListener(this);
@@ -313,7 +303,7 @@ public class PreferencesActivity extends PreferenceActivity implements OnPrefere
 
 	@Override
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
-		if(preference.equals(preferenceTranslucentNavigationBar) || preference.equals(preferenceTranslucentStatusBar) || preference.equals(preferenceDisableLockScreen) || preference.equals(preferenceEnableGestures) || preference.equals(preferenceShowPlaybackControls)) {
+		if(preference.equals(preferenceDisableLockScreen) || preference.equals(preferenceEnableGestures) || preference.equals(preferenceShowPlaybackControls)) {
 			needsRestart = true;
 		}
 		return true;

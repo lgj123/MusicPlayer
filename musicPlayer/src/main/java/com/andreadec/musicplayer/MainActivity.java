@@ -159,19 +159,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
         
         
         
-        if(Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT<20) {
+        if(Build.VERSION.SDK_INT==19) {
         	// Android 4.4+ only
-        	boolean translucentStatus = preferences.getBoolean(Constants.PREFERENCE_TRANSLUCENTSTATUSBAR, Constants.DEFAULT_TRANSLUCENTSTATUSBAR);
-        	boolean translucentNavigation = preferences.getBoolean(Constants.PREFERENCE_TRANSLUCENTNAVIGATIONBAR, Constants.DEFAULT_TRANSLUCENTNAVIGATIONBAR);
-        	
-        	if(translucentStatus) getWindow().addFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        	if(translucentNavigation) getWindow().addFlags(LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            
+        	getWindow().addFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        	getWindow().addFlags(LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         	SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            if(translucentStatus) {
-            	tintManager.setStatusBarTintEnabled(true);
-                tintManager.setStatusBarTintResource(R.color.actionBarBackground);
-            }
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintResource(R.color.actionBarBackground);
         }
         
         

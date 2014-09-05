@@ -44,8 +44,6 @@ public class Constants {
 	public final static String PREFERENCE_PODCASTSDIRECTORY = "podcastsDirectory";
 	public final static String PREFERENCE_ENABLEBACKDOUBLEPRESSTOQUITAPP = "enableBackDoublePressToQuitApp";
 	public final static String PREFERENCE_SHOWRELATIVEPATHUNDERBASEDIRECTORY = "showRelativePathUnderBaseDirectory";
-	public final static String PREFERENCE_TRANSLUCENTSTATUSBAR = "translucentStatusBar";
-	public final static String PREFERENCE_TRANSLUCENTNAVIGATIONBAR = "translucentNavigationBar";
 	public final static String PREFERENCE_ENABLEGESTURES = "enableGestures";
 	public final static String PREFERENCE_SHOWPLAYBACKCONTROLS = "showPlaybackControls";
 	
@@ -87,8 +85,6 @@ public class Constants {
 	public final static boolean DEFAULT_SHOWSONGIMAGE = true;
 	public final static boolean DEFAULT_ENABLEBACKDOUBLEPRESSTOQUITAPP = true;
 	public final static boolean DEFAULT_SHOWRELATIVEPATHUNDERBASEDIRECTORY = true;
-	public final static boolean DEFAULT_TRANSLUCENTSTATUSBAR = true;
-	public final static boolean DEFAULT_TRANSLUCENTNAVIGATIONBAR = true;
 	public final static boolean DEFAULT_ENABLEGESTURES = false;
 	public final static boolean DEFAULT_SHOWPLAYBACKCONTROLS = true;
 	
