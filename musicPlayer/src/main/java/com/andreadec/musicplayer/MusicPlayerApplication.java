@@ -20,20 +20,18 @@ import java.io.*;
 
 import android.app.*;
 import android.content.*;
-import android.graphics.Bitmap;
-import android.support.v4.util.LruCache;
 
 public class MusicPlayerApplication extends Application {
 	private static Context context;
 	private BrowserDirectory currentDirectory;
 	private String lastSearch;
-    public LruCache<String,Bitmap> imagesCache;
+    public ImagesCache imagesCache;
 
 	@Override
     public void onCreate(){
         super.onCreate();
         context = getApplicationContext();
-        imagesCache = new LruCache<String,Bitmap>(Constants.IMAGES_CACHE_SIZE);
+        imagesCache = new ImagesCache(context);
     }
 
     public static Context getContext() {

@@ -29,7 +29,7 @@ import com.andreadec.musicplayer.*;
 
 public class BrowserArrayAdapter extends MusicListArrayAdapter {
 	private BrowserSong playingSong;
-	private LruCache<String,Bitmap> imagesCache;
+	private ImagesCache imagesCache;
 	private final static int TYPE_DIRECTORY=0, TYPE_SONG=1, TYPE_ACTION=2;
 	private Drawable songImage;
  
@@ -97,14 +97,7 @@ public class BrowserArrayAdapter extends MusicListArrayAdapter {
 				viewHolder.card.setBackgroundResource(R.drawable.card);
                 viewHolder.image.setImageDrawable(songImage);
                 if(song.hasImage()) {
-                    Bitmap image;
-                    synchronized(imagesCache) {
-                        image = imagesCache.get(song.getUri());
-                    }
-                    if(image!=null) {
-                        viewHolder.image.setImageBitmap(image);
-                    }
-                    else new ImageLoaderTask(song, viewHolder.image, imagesCache, listImageSize).execute();
+                    imagesCache.getImageAsync(song, viewHolder.image);
                 }
 			}
 		}

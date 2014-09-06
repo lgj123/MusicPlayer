@@ -19,6 +19,7 @@ package com.andreadec.musicplayer.adapters;
 import java.util.*;
 import android.graphics.*;
 import android.graphics.drawable.*;
+import android.media.Image;
 import android.support.v4.util.*;
 import android.view.*;
 import android.widget.*;
@@ -27,7 +28,7 @@ import com.andreadec.musicplayer.*;
 
 public class PlaylistArrayAdapter extends MusicListArrayAdapter {
 	private PlaylistSong playingSong;
-	private LruCache<String,Bitmap> imagesCache;
+	private ImagesCache imagesCache;
 	private Drawable songImage;
 	private final static int TYPE_ACTION=0, TYPE_PLAYLIST=1, TYPE_SONG=2;
  
@@ -102,14 +103,7 @@ public class PlaylistArrayAdapter extends MusicListArrayAdapter {
 				viewHolder.card.setBackgroundResource(R.drawable.card);
                 viewHolder.image.setImageDrawable(songImage);
                 if(song.hasImage()) {
-                    Bitmap image;
-                    synchronized(imagesCache) {
-                        image = imagesCache.get(song.getPlayableUri());
-                    }
-                    if(image!=null) {
-                        viewHolder.image.setImageBitmap(image);
-                    }
-                    else new ImageLoaderTask(song, viewHolder.image, imagesCache, listImageSize).execute();
+                    imagesCache.getImageAsync(song, viewHolder.image);
                 }
 			}
 		}

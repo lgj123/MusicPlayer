@@ -388,9 +388,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	    	}
 
             imageViewSongImage.setVisibility(View.GONE);
-            int imageSize = (int)getResources().getDimension(R.dimen.songImageSize);
-            ImageLoaderTask imageLoader = new ImageLoaderTask(playingItem, imageViewSongImage, ((MusicPlayerApplication)getApplication()).imagesCache, imageSize);
-            imageLoader.execute();
+            ((MusicPlayerApplication)getApplication()).imagesCache.getImageAsync(playingItem, imageViewSongImage);
     	} else {
     		// No song loaded
     		textViewTitle.setText(R.string.noSong);

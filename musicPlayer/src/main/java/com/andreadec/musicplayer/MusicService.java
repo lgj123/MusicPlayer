@@ -383,12 +383,7 @@ public class MusicService extends Service implements OnCompletionListener {
 	private void updateNotificationMessage() {
         Bitmap image = null;
         if(currentPlayingItem!=null && currentPlayingItem.hasImage()) {
-            LruCache<String, Bitmap> imagesCache = ((MusicPlayerApplication) getApplication()).imagesCache;
-            synchronized(imagesCache) {
-                image = imagesCache.get(currentPlayingItem.getPlayableUri());
-                if(image!=null) image = image.copy(image.getConfig(), true); // Necessary to avoid recycled bitmap to be used.
-            }
-            if(image==null) image = currentPlayingItem.getImage();
+            image = ((MusicPlayerApplication)getApplication()).imagesCache.getImageSync(currentPlayingItem);
         }
 
 		/* Update remote control client */
