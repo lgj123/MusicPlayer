@@ -30,6 +30,7 @@ public class ImagesCache {
             imageLoader.execute();
         } else {
             imageView.setImageBitmap(image);
+            imageView.setVisibility(View.VISIBLE);
         }
     }
 
