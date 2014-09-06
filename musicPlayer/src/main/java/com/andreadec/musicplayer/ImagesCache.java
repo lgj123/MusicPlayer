@@ -17,6 +17,12 @@ public class ImagesCache {
         cache = new LruCache<String,Bitmap>(Constants.IMAGES_CACHE_SIZE);
     }
 
+    public void clearCache() {
+        synchronized(cache) {
+            cache.evictAll();
+        }
+    }
+
     public void getImageAsync(PlayableItem item, ImageView imageView) {
         Bitmap image = null;
         synchronized(cache) {

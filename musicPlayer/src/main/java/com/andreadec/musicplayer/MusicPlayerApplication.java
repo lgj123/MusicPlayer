@@ -20,6 +20,7 @@ import java.io.*;
 
 import android.app.*;
 import android.content.*;
+import android.util.Log;
 
 public class MusicPlayerApplication extends Application {
 	private static Context context;
@@ -32,6 +33,12 @@ public class MusicPlayerApplication extends Application {
         super.onCreate();
         context = getApplicationContext();
         imagesCache = new ImagesCache(context);
+    }
+
+    @Override
+    public void onLowMemory() {
+        Log.d("MusicPlayer", "Low memory condition!");
+        imagesCache.clearCache();
     }
 
     public static Context getContext() {
