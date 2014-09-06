@@ -2,6 +2,7 @@ package com.andreadec.musicplayer;
 
 import android.content.Context;
 import android.graphics.*;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v4.util.*;
 import android.view.View;
@@ -10,10 +11,12 @@ import android.widget.ImageView;
 public class ImagesCache {
     private int imagesSize;
     private LruCache<String,Bitmap> cache;
+    private Drawable songImage;
 
     public ImagesCache(Context context) {
         imagesSize = (int)context.getResources().getDimension(R.dimen.songImageSize);
         cache = new LruCache<String,Bitmap>(Constants.IMAGES_CACHE_SIZE);
+        songImage = context.getResources().getDrawable(R.drawable.audio);
     }
 
     public void getImageAsync(PlayableItem item, ImageView imageView) {
@@ -22,11 +25,11 @@ public class ImagesCache {
             image = cache.get(item.getPlayableUri());
         }
         if(image==null) {
+            imageView.setImageDrawable(songImage);
             ImageLoaderTask imageLoader = new ImageLoaderTask(item, imageView);
             imageLoader.execute();
         } else {
             imageView.setImageBitmap(image);
-            imageView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -51,6 +54,11 @@ public class ImagesCache {
             this.item = item;
             this.imageView = imageView;
         }
+
+        /*@Override
+        protected void onPreExecute() {
+            imageView.setVisibility(View.INVISIBLE);
+        }*/
 
         @Override
         protected Bitmap doInBackground(Void... params) {

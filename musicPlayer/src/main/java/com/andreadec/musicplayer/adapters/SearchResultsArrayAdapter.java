@@ -25,11 +25,13 @@ import com.andreadec.musicplayer.*;
 public class SearchResultsArrayAdapter extends ArrayAdapter<BrowserSong> {
 	private final ArrayList<BrowserSong> songs;
 	private LayoutInflater inflater;
+    private ImagesCache imagesCache;
  
 	public SearchResultsArrayAdapter(SearchActivity searchActivity, ArrayList<BrowserSong> songs) {
 		super(searchActivity, R.layout.song_item, songs);
 		this.songs = songs;
 		inflater = searchActivity.getLayoutInflater();
+        imagesCache = ((MusicPlayerApplication)searchActivity.getApplication()).imagesCache;
 	}
 
 	@Override
@@ -42,11 +44,13 @@ public class SearchResultsArrayAdapter extends ArrayAdapter<BrowserSong> {
 			view = inflater.inflate(R.layout.song_item, parent, false);
 			viewHolder.title = (TextView)view.findViewById(R.id.textViewSongItemTitle);
 			viewHolder.artist = (TextView)view.findViewById(R.id.textViewSongItemArtist);
+            viewHolder.image = (ImageView)view.findViewById(R.id.imageViewItemImage);
 		} else {
 			viewHolder = (ViewHolder)view.getTag();
 		}
 		viewHolder.title.setText(song.getTitle());
 		viewHolder.artist.setText(song.getArtist());
+        imagesCache.getImageAsync(song, viewHolder.image);
 		
 		view.setTag(viewHolder);
 		return view;
@@ -55,6 +59,6 @@ public class SearchResultsArrayAdapter extends ArrayAdapter<BrowserSong> {
 	private class ViewHolder {
 		public TextView artist;
 		public TextView title;
-		//public ImageView image;
+		public ImageView image;
 	}
 }
