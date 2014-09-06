@@ -11,12 +11,10 @@ import android.widget.ImageView;
 public class ImagesCache {
     private int imagesSize;
     private LruCache<String,Bitmap> cache;
-    private Drawable songImage;
 
     public ImagesCache(Context context) {
         imagesSize = (int)context.getResources().getDimension(R.dimen.songImageSize);
         cache = new LruCache<String,Bitmap>(Constants.IMAGES_CACHE_SIZE);
-        songImage = context.getResources().getDrawable(R.drawable.audio);
     }
 
     public void getImageAsync(PlayableItem item, ImageView imageView) {
@@ -25,7 +23,7 @@ public class ImagesCache {
             image = cache.get(item.getPlayableUri());
         }
         if(image==null) {
-            imageView.setImageDrawable(songImage);
+
             ImageLoaderTask imageLoader = new ImageLoaderTask(item, imageView);
             imageLoader.execute();
         } else {
@@ -55,11 +53,6 @@ public class ImagesCache {
             this.item = item;
             this.imageView = imageView;
         }
-
-        /*@Override
-        protected void onPreExecute() {
-            imageView.setVisibility(View.INVISIBLE);
-        }*/
 
         @Override
         protected Bitmap doInBackground(Void... params) {

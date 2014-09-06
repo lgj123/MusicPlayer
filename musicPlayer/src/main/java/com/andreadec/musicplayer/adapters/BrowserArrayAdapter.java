@@ -30,12 +30,14 @@ import com.andreadec.musicplayer.*;
 public class BrowserArrayAdapter extends MusicListArrayAdapter {
 	private BrowserSong playingSong;
 	private ImagesCache imagesCache;
+    private Drawable songImage;
 	private final static int TYPE_DIRECTORY=0, TYPE_SONG=1, TYPE_ACTION=2;
  
 	public BrowserArrayAdapter(MainActivity activity, ArrayList<Object> values, BrowserSong playingSong) {
 		super(activity, values);
 		this.playingSong = playingSong;
 		this.imagesCache = ((MusicPlayerApplication)activity.getApplication()).imagesCache;
+        songImage = activity.getResources().getDrawable(R.drawable.audio);
 	}
 	
 	@Override
@@ -93,6 +95,7 @@ public class BrowserArrayAdapter extends MusicListArrayAdapter {
 				viewHolder.image.setImageResource(R.drawable.play_orange);
 			} else {
 				viewHolder.card.setBackgroundResource(R.drawable.card);
+                viewHolder.image.setImageDrawable(songImage);
                 if(song.hasImage()) {
                     imagesCache.getImageAsync(song, viewHolder.image);
                 }
