@@ -16,12 +16,12 @@
 
 package com.andreadec.musicplayer;
 
-import android.content.Context;
+import android.content.*;
 import android.graphics.*;
-import android.os.AsyncTask;
-import android.support.v4.util.*;
-import android.view.View;
-import android.widget.ImageView;
+import android.os.*;
+import android.util.*;
+import android.view.*;
+import android.widget.*;
 
 public class ImagesCache {
     private int imagesSize;

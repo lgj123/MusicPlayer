@@ -26,7 +26,6 @@ import com.readystatesoftware.systembartint.*;
 import android.media.AudioManager;
 import android.os.*;
 import android.preference.*;
-import android.support.v4.util.LruCache;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.*;

@@ -28,8 +28,6 @@ import android.media.MediaPlayer.*;
 import android.media.audiofx.*;
 import android.os.*;
 import android.preference.*;
-import android.support.v4.app.*;
-import android.support.v4.util.LruCache;
 import android.telephony.*;
 import android.view.KeyEvent;
 import android.widget.RemoteViews;
@@ -412,7 +410,6 @@ public class MusicService extends Service implements OnCompletionListener {
 		//notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
         notificationBuilder.setOngoing(true);
         notificationBuilder.setContentIntent(pendingIntent);
-        notificationBuilder.setPriority(Notification.PRIORITY_MAX);
 		
 		int playPauseIcon = isPlaying() ? R.drawable.pause : R.drawable.play;
 		
@@ -436,11 +433,8 @@ public class MusicService extends Service implements OnCompletionListener {
 		notificationLayout.setImageViewResource(R.id.buttonNotificationPlayPause, playPauseIcon);
 		notificationLayout.setOnClickPendingIntent(R.id.buttonNotificationPlayPause, playpausePendingIntent);
 		notificationLayout.setOnClickPendingIntent(R.id.buttonNotificationNext, nextPendingIntent);
-
-        //notificationBuilder.setContent(notificationLayout);
         notification = notificationBuilder.build();
         notification.bigContentView = notificationLayout;
-        //notification.contentView = notificationLayout;
 		
 		notificationManager.notify(Constants.NOTIFICATION_MAIN, notification);
 	}
