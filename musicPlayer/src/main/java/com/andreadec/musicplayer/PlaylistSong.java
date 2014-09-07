@@ -124,7 +124,7 @@ public class PlaylistSong implements PlayableItem {
 		MediaMetadataRetriever mmr = new MediaMetadataRetriever();
 		try {
 			mmr.setDataSource(uri);
-			if(Build.VERSION.SDK_INT>=14) bitrate = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_BITRATE);
+			bitrate = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_BITRATE);
 			album = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
 			year = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_YEAR);
 		} catch(Exception e) {

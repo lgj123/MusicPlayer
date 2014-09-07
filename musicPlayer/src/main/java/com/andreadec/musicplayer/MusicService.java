@@ -136,16 +136,14 @@ public class MusicService extends Service implements OnCompletionListener {
 		audioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
 		
 		// Initialize remote control client
-		if(Build.VERSION.SDK_INT>=14) {
-			icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-			Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-			mediaButtonIntent.setComponent(mediaButtonReceiverComponent);
-			PendingIntent mediaPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0);
-			
-			remoteControlClient = new RemoteControlClient(mediaPendingIntent);
-			remoteControlClient.setTransportControlFlags(RemoteControlClient.FLAG_KEY_MEDIA_PLAY_PAUSE | RemoteControlClient.FLAG_KEY_MEDIA_PREVIOUS | RemoteControlClient.FLAG_KEY_MEDIA_NEXT);
-			audioManager.registerRemoteControlClient(remoteControlClient);
-		}
+        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+        Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+        mediaButtonIntent.setComponent(mediaButtonReceiverComponent);
+        PendingIntent mediaPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0);
+
+        remoteControlClient = new RemoteControlClient(mediaPendingIntent);
+        remoteControlClient.setTransportControlFlags(RemoteControlClient.FLAG_KEY_MEDIA_PLAY_PAUSE | RemoteControlClient.FLAG_KEY_MEDIA_PREVIOUS | RemoteControlClient.FLAG_KEY_MEDIA_NEXT);
+        audioManager.registerRemoteControlClient(remoteControlClient);
 		
 		updateNotificationMessage();
 		
@@ -266,7 +264,7 @@ public class MusicService extends Service implements OnCompletionListener {
 		editor.putString(Constants.PREFERENCE_LASTDIRECTORY, ((MusicPlayerApplication)getApplication()).getCurrentDirectory().getDirectory().getAbsolutePath());
 		editor.commit();
 		
-		if(Build.VERSION.SDK_INT>=14) audioManager.unregisterRemoteControlClient(remoteControlClient);
+		audioManager.unregisterRemoteControlClient(remoteControlClient);
 		audioManager.unregisterMediaButtonEventReceiver(mediaButtonReceiverComponent);
 		audioManager.abandonAudioFocus(null);
 		shakeListener.disable();
@@ -387,28 +385,26 @@ public class MusicService extends Service implements OnCompletionListener {
         }
 
 		/* Update remote control client */
-		if(Build.VERSION.SDK_INT>=14) {
-			if(currentPlayingItem==null) {
-				remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
-			} else {
-				if(isPlaying()) {
-					remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
-				} else {
-					remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PAUSED);
-				}
-				RemoteControlClient.MetadataEditor metadataEditor = remoteControlClient.editMetadata(true);
-				metadataEditor.putString(MediaMetadataRetriever.METADATA_KEY_TITLE, currentPlayingItem.getTitle());
-				metadataEditor.putString(MediaMetadataRetriever.METADATA_KEY_ALBUM, currentPlayingItem.getArtist());
-				metadataEditor.putString(MediaMetadataRetriever.METADATA_KEY_ARTIST, currentPlayingItem.getArtist());
-				metadataEditor.putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, getDuration());
-				if(currentPlayingItem.hasImage()) {
-					metadataEditor.putBitmap(METADATA_KEY_ARTWORK, image);
-				} else {
-					metadataEditor.putBitmap(METADATA_KEY_ARTWORK, icon.copy(icon.getConfig(), false));
-				}
-				metadataEditor.apply();
-			}
-		}
+        if(currentPlayingItem==null) {
+            remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
+        } else {
+            if(isPlaying()) {
+                remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
+            } else {
+                remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PAUSED);
+            }
+            RemoteControlClient.MetadataEditor metadataEditor = remoteControlClient.editMetadata(true);
+            metadataEditor.putString(MediaMetadataRetriever.METADATA_KEY_TITLE, currentPlayingItem.getTitle());
+            metadataEditor.putString(MediaMetadataRetriever.METADATA_KEY_ALBUM, currentPlayingItem.getArtist());
+            metadataEditor.putString(MediaMetadataRetriever.METADATA_KEY_ARTIST, currentPlayingItem.getArtist());
+            metadataEditor.putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, getDuration());
+            if(currentPlayingItem.hasImage()) {
+                metadataEditor.putBitmap(METADATA_KEY_ARTWORK, image);
+            } else {
+                metadataEditor.putBitmap(METADATA_KEY_ARTWORK, icon.copy(icon.getConfig(), false));
+            }
+            metadataEditor.apply();
+        }
 		
 		/* Update notification */
 		NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);

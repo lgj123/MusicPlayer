@@ -44,15 +44,12 @@ public class PreferencesActivity extends PreferenceActivity implements OnPrefere
 	private boolean needsRestart;
 	
 	@SuppressWarnings("deprecation")
-	@SuppressLint("NewApi")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-    	if(Build.VERSION.SDK_INT >= 11) {
-			getActionBar().setHomeButtonEnabled(true);
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
+        getActionBar().setHomeButtonEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     	
     	preferences = PreferenceManager.getDefaultSharedPreferences(this);
     	
@@ -90,11 +87,7 @@ public class PreferencesActivity extends PreferenceActivity implements OnPrefere
 		final Intent intent = new Intent(this, MainActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		if(needsRestart) {
-			if(Build.VERSION.SDK_INT>=11) {
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-			} else {
-				Utils.showMessageDialog(this, R.string.restartNeeded, R.string.restartNeededMessage);
-			}
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		}
 		startActivity(intent);
 	}

@@ -11,14 +11,14 @@ So I decided to write this application for my personal use and to publish it hop
 - Easily browse songs in folders
 - Manage playlists
 - Web radios playback
-- Playback control from notification panel (Android 4.1+ only)
+- Playback control from notification panel
 - Repeat, shuffle
 - Bass booster, equalizer
 - Songs search by title or artist
 - Listen to podcasts
 - Possibility to execute commands shaking the device
-- Remote Control support (Android 4.1+ only)
-- App is compatible with Android 2.3.3+
+- Remote Control support
+- App is compatible with Android 4.1+
 
 
 ## Screenshots

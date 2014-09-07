@@ -150,8 +150,6 @@
 	<string name="enableBackDoublePressToQuitAppSummary">Chiudi l\'applicazione premendo due volte il tasto indietro.</string>
 	<string name="showRelativePathUnderBaseDirectory">Percorso relativo</string>
 	<string name="showRelativePathUnderBaseDirectorySummary">Mostra percorso relativo per le cartelle contenute nella directory principale.</string>
-	<string name="restartNeeded">Riavvio necessario</string>
-	<string name="restartNeededMessage">Per applicare alcune impostazioni è necessario riavviare l\'applicazione.</string>
 	<string name="chooseDirectory">Scegli una directory</string>
 	<string name="currentDirectory">Directory attuale:</string>
 	<string name="enableGestures">Abilita gestures</string>

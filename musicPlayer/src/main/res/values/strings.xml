@@ -151,8 +151,6 @@
 	<string name="enableBackDoublePressToQuitAppSummary">Use double tap on back button to close the app.</string>
 	<string name="showRelativePathUnderBaseDirectory">Relative path</string>
 	<string name="showRelativePathUnderBaseDirectorySummary">Show relative path for folders under base directory.</string>
-	<string name="restartNeeded">Restart needed</string>
-	<string name="restartNeededMessage">To apply some settings the app must be restarted.</string>
 	<string name="chooseDirectory">Choose a directory</string>
 	<string name="currentDirectory">Current directory:</string>
 	<string name="enableGestures">Enable gestures</string>

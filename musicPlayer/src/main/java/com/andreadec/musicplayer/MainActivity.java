@@ -87,7 +87,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	
 	
 	/* Initializes the activity. */
-    @SuppressLint({ "InlinedApi", "NewApi" })
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,7 +141,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
             }
         };
         drawerLayout.setDrawerListener(drawerToggle);
-        if(Build.VERSION.SDK_INT>=11) getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         drawerContainer = (RelativeLayout)findViewById(R.id.navigation_container);
         drawerList = (ListView)findViewById(R.id.navigation_list);
         navigationAdapter = new NavigationDrawerArrayAdapter(this, pages);
@@ -291,9 +290,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	@Override
     public void setTitle(CharSequence title) {
     	super.setTitle(title);
-    	if(Build.VERSION.SDK_INT>=11) {
-    		getActionBar().setTitle(title);
-    	}
+    	getActionBar().setTitle(title);
     }
     
     private void openPage(int page) {
