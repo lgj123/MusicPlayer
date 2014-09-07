@@ -30,7 +30,7 @@ android {
             compileSdkVersion "android-L"
         }
         android {
-            minSdkVersion 10
+            minSdkVersion 16
             targetSdkVersion 19
             compileSdkVersion 19
         }
