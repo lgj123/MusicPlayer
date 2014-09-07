@@ -21,8 +21,7 @@
 <resources>
 	<dimen name="listImageSize">40dp</dimen>
 	<dimen name="songImageSize">80dp</dimen>
-	
-	<dimen name="notificationHeight">150dp</dimen>
+
 	<dimen name="notificationImageSize">100dp</dimen>
 	<dimen name="notificationButtonsSize">50dp</dimen>
     <dimen name="notificationQuitButtonSize">40dp</dimen>

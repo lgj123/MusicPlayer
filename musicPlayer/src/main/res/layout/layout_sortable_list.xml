@@ -16,19 +16,12 @@
  * limitations under the License.
  */
 -->
-    
-<com.mobeta.android.dslv.DragSortListView xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:dslv="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/listView"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:divider="@android:color/transparent"
-	android:dividerHeight="0dp"
-	dslv:float_alpha="0.6"
-	dslv:drag_handle_id="@id/imageViewItemImage"
-	dslv:drag_start_mode="onMove"
-	dslv:float_background_color="@android:color/transparent"
-	dslv:remove_enabled="true"
-	dslv:remove_mode="flingRemove"
-	dslv:fling_handle_id="@id/imageViewItemImage" />
+
+<com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@android:color/transparent"
+    android:dividerHeight="0dp" />
 	

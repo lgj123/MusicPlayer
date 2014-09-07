@@ -57,8 +57,12 @@ public class AboutActivity extends Activity {
         about += "<p>Copyright (c) 2005-2008, The Android Open Source Project<br>";
         about += resources.getString(R.string.apacheLicense);
         
-        about += "<h5>DragSortListView</h5>";
-        about += "<p>Copyright 2012 Carl Bauer</p>";
+        about += "<h5>ListViewAnimations</h5>";
+        about += "<p>Copyright 2014 Niek Haarman</p>";
+        about += resources.getString(R.string.apacheLicense);
+
+        about += "<h5>NineOldAndroids</h5>";
+        about += "<p>Copyright 2012 Jake Wharton</p>";
         about += resources.getString(R.string.apacheLicense);
         
         about += "<h5>System Bar Tint</h5>";

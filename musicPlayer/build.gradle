@@ -17,6 +17,7 @@ android {
         }
         release {
             runProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue "string", "app_name", "Music Player"
         }
     }
@@ -49,6 +50,8 @@ repositories {
 dependencies {
     androidCompile 'com.android.support:support-v4:19.+'
     androidLCompile 'com.android.support:support-v4:20.+'
-    compile 'com.mobeta.android.dslv:drag-sort-listview:0.6.1@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
+    compile 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0@aar'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 }

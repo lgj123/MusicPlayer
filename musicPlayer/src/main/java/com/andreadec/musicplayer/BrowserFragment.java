@@ -108,7 +108,6 @@ public class BrowserFragment extends MusicPlayerFragment implements OnItemClickL
                     break;
             }
         } else { // Click on an item of the submenu
-            System.out.println(mainMenuItem);
             Object listItem = browserArrayAdapter.getItem(listPosition);
             switch(mainMenuItem) {
                 case MENU_ADDTOPLAYLIST:

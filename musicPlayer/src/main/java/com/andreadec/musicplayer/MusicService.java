@@ -407,27 +407,14 @@ public class MusicService extends Service implements OnCompletionListener {
         }
 		
 		/* Update notification */
-		NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
+		Notification.Builder notificationBuilder = new Notification.Builder(this);
 		notificationBuilder.setSmallIcon(R.drawable.audio_white);
 		//notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
-		notificationBuilder.setOngoing(true);
+        notificationBuilder.setOngoing(true);
+        notificationBuilder.setContentIntent(pendingIntent);
+        notificationBuilder.setPriority(Notification.PRIORITY_MAX);
 		
 		int playPauseIcon = isPlaying() ? R.drawable.pause : R.drawable.play;
-		//int playPauseString = isPlaying() ? R.string.pause : R.string.play;
-		notificationBuilder.setContentIntent(pendingIntent);
-		
-		String notificationMessage = "";
-		if(currentPlayingItem==null) {
-			notificationMessage = getResources().getString(R.string.noSong);
-		} else {
-			if(currentPlayingItem.getArtist()!=null && !currentPlayingItem.getArtist().equals("")) notificationMessage = currentPlayingItem.getArtist()+" - ";
-			notificationMessage += currentPlayingItem.getTitle();
-		}
-		
-		notificationBuilder.setContentTitle(getResources().getString(R.string.app_name));
-		notificationBuilder.setContentText(notificationMessage);
-		
-		notification = notificationBuilder.build();
 		
 		RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.layout_notification);
 		
@@ -449,7 +436,11 @@ public class MusicService extends Service implements OnCompletionListener {
 		notificationLayout.setImageViewResource(R.id.buttonNotificationPlayPause, playPauseIcon);
 		notificationLayout.setOnClickPendingIntent(R.id.buttonNotificationPlayPause, playpausePendingIntent);
 		notificationLayout.setOnClickPendingIntent(R.id.buttonNotificationNext, nextPendingIntent);
-		notification.bigContentView = notificationLayout;
+
+        //notificationBuilder.setContent(notificationLayout);
+        notification = notificationBuilder.build();
+        notification.bigContentView = notificationLayout;
+        //notification.contentView = notificationLayout;
 		
 		notificationManager.notify(Constants.NOTIFICATION_MAIN, notification);
 	}
