@@ -410,6 +410,7 @@ public class MusicService extends Service implements OnCompletionListener {
 		//notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
         notificationBuilder.setOngoing(true);
         notificationBuilder.setContentIntent(pendingIntent);
+        notificationBuilder.setContentTitle(getResources().getString(R.string.app_name));
 		
 		int playPauseIcon = isPlaying() ? R.drawable.pause : R.drawable.play;
 		
@@ -420,6 +421,10 @@ public class MusicService extends Service implements OnCompletionListener {
 			notificationLayout.setTextViewText(R.id.textViewTitle, getString(R.string.noSong));
 			notificationLayout.setImageViewBitmap(R.id.imageViewNotification, BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
 		} else {
+            String title = currentPlayingItem.getArtist();
+            if(!title.equals("")) title += " - ";
+            title += currentPlayingItem.getTitle();
+            notificationBuilder.setContentText(title);
 			notificationLayout.setTextViewText(R.id.textViewArtist, currentPlayingItem.getArtist());
 			notificationLayout.setTextViewText(R.id.textViewTitle, currentPlayingItem.getTitle());
 			if(image!=null) {
