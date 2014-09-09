@@ -380,6 +380,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	    	} else {
 	    		songDurationString = "";
 	    		seekBar1.setVisibility(View.GONE);
+                seekBar2.setVisibility(View.GONE);
 	    		imageButtonShowSeekbar2.setVisibility(View.GONE);
 	    	}
 
