@@ -523,6 +523,8 @@ public class MusicService extends Service implements OnCompletionListener {
 		PlayableItem nextItem = currentPlayingItem.getNext(repeatAll);
 		if(nextItem==null) {
 			if(!isPlaying()) wakeLockRelease();
+            sendBroadcast(new Intent("com.andreadec.musicplayer.newsong")); // Notify the activity that there are no more songs to be played
+            updateNotificationMessage();
 		} else {
 			playItem(nextItem);
 		}
