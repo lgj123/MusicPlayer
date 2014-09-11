@@ -42,9 +42,9 @@ project.ext.set("archivesBaseName", "MusicPlayer");
 
 repositories {
     mavenCentral()
-    flatDir {
+    /*flatDir {
         dirs 'libs'
-    }
+    }*/
 }
 
 dependencies {
