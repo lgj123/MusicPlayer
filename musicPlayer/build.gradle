@@ -6,7 +6,7 @@ android {
     buildToolsVersion '20.0.0'
     defaultConfig {
         applicationId 'com.andreadec.musicplayer'
-        minSdkVersion 10
+        minSdkVersion 16
         targetSdkVersion 19
     }
     buildTypes {

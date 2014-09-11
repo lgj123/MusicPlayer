@@ -17,7 +17,6 @@
 -->
 
 <resources>
-	<style name="AppTheme" parent="android:Theme.Light" />
 	<style name="card">
 	    <item name="android:background">@drawable/card</item>
 	    <item name="android:layout_marginLeft">6dp</item>
@@ -35,5 +34,22 @@
     <style name="notificationQuitButton" parent="notificationButton">
         <item name="android:layout_width">@dimen/notificationQuitButtonSize</item>
         <item name="android:layout_height">@dimen/notificationQuitButtonSize</item>
+    </style>
+
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+    </style>
+
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/actionBarBackground</item>
+        <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
+    </style>
+
+    <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="MainActivityTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/lightGrey</item>
     </style>
 </resources>
