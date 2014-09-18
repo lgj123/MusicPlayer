@@ -1,5 +1,6 @@
+<!--
 /*
- * Copyright 2013 Andrea De Cesare
+ * Copyright 2014 Andrea De Cesare
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+-->
 
-package com.andreadec.musicplayer;
-
-public class Action {
-	public final static int ACTION_GO_BACK = 0;
-	public final static int ACTION_UPDATE = 1;
-	public final static int ACTION_NEW = 2;
-	public int action;
-	public String msg;
-	
-	public Action(int action, String msg) {
-		this.action = action;
-		this.msg = msg;
-	}
-}
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_addToPlaylist"
+        android:title="@string/addToPlaylist" />
+    <!--<item android:id="@+id/menu_reloadSongInfo"
+        android:title="@string/reloadSongInfo" />-->
+</menu>

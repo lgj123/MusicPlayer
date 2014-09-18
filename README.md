@@ -21,14 +21,6 @@ So I decided to write this application for my personal use and to publish it hop
 - App is compatible with Android 4.1+
 
 
-## Screenshots
-![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer1.png)
-![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer2.png)
-![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer3.png)
-![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer4.png)
-![](https://googledrive.com/host/0B-SI_e2HE0-LVHc3RFRneDJ2a00/MusicPlayer5.png)
-
-
 ## Required permissions
 - READ\_PHONE\_STATE (read phone status and identity): necessary to be notified if a phone call arrives, so that the playback can be stopped;
 - WAKE\_LOCK (prevent phone from sleeping): necessary to let the music keep playing when the screen is turned off;
@@ -99,23 +91,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-### System Bar Tint
-Copyright 2013 readyState Software Limited
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-### Icons
+### Artworks
 Some icons are from the [Tango Desktop Project](http://tango.freedesktop.org), released into the Public Domain.
+Some UI elements were generated using [Android Holo Colors](http://android-holo-colors.com) by Jérôme Van Der Linden, licensed under Creative Commons Attribution 3.0 Unported License.
 
 
 ## Special thanks

@@ -18,119 +18,46 @@ package com.andreadec.musicplayer;
 
 import java.io.*;
 import java.util.*;
-
 import android.app.*;
 import android.content.*;
 import android.os.*;
-import android.preference.*;
 import android.view.*;
-import android.view.ContextMenu.*;
 import android.widget.*;
-import android.widget.AdapterView.*;
-
 import com.andreadec.musicplayer.adapters.*;
 
-public class BrowserFragment extends MusicPlayerFragment implements OnItemClickListener {
-	private final static int MENU_SETASBASEFOLDER = -1, MENU_ADDTOPLAYLIST = -2, MENU_RELOADSONGINFO = -3;
-	private ListView listViewBrowser;
-	private BrowserArrayAdapter browserArrayAdapter;
-	private SharedPreferences preferences;
-	private MainActivity activity;
-	private int lastFolderPosition; // Used to save the index of the first visible element in the previous folder list. This info will be used to restore list position when browsing back to the last directory. If <=0 no restore is performed.
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		activity = (MainActivity)getActivity();
-		preferences = PreferenceManager.getDefaultSharedPreferences(activity);
-	}
-	
+public class BrowserFragment extends MusicPlayerFragment {
+    private int lastFolderPosition; // Used to save the index of the first visible element in the previous folder list. This info will be used to restore list position when browsing back to the last directory. If <=0 no restore is performed.
+    private MainActivity activity;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        activity = (MainActivity)getActivity();
+    }
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.layout_simple_list, container, false);
-		listViewBrowser = (ListView)view.findViewById(R.id.listView);
-		listViewBrowser.setOnItemClickListener(this);
-		registerForContextMenu(listViewBrowser);
-		updateListView(false);
+        initialize(view);
+        setFloatingButtonVisible(false);
+        setEmptyViewMessage(R.string.folderEmpty);
+        updateListView(false);
 		return view;
-	}
-	
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
-		int position = ((AdapterContextMenuInfo)menuInfo).position;
-		Object item = browserArrayAdapter.getItem(position);
-		if(item instanceof String) return;
-		
-		super.onCreateContextMenu(menu, view, menuInfo);
-
-        if(item instanceof File) {
-            menu.setHeaderTitle(((File)item).getName());
-            menu.add(ContextMenu.NONE, MENU_SETASBASEFOLDER, ContextMenu.NONE, activity.getResources().getString(R.string.setAsBaseFolder));
-        }
-
-        ArrayList<Playlist> playlists = Playlists.getPlaylists();
-        if(playlists.size()>0) {
-            int message = item instanceof File ? R.string.addFolderToPlaylist : R.string.addToPlaylist;
-            SubMenu playlistMenu = menu.addSubMenu(ContextMenu.NONE, MENU_ADDTOPLAYLIST, ContextMenu.NONE, message);
-            playlistMenu.setHeaderTitle(R.string.addToPlaylist);
-            for(int i=0; i<playlists.size(); i++) {
-                Playlist playlist = playlists.get(i);
-                playlistMenu.add(ContextMenu.NONE, i, i, playlist.getName());
-            }
-        }
-
-        if(item instanceof BrowserSong) {
-            BrowserSong song = (BrowserSong)item;
-            String title = "";
-            if(song.getArtist()!=null) title += song.getArtist()+" - ";
-            if(song.getTitle()!=null) title += song.getTitle();
-            menu.setHeaderTitle(title);
-            menu.add(ContextMenu.NONE, MENU_RELOADSONGINFO, ContextMenu.NONE, activity.getResources().getString(R.string.reloadSongInfo));
-        }
-	}
-	
-	int mainMenuItem, listPosition;
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-        if(info!=null) { // Click on an item of the main menu
-            mainMenuItem = item.getItemId(); // Save which item was clicked
-            listPosition = info.position; // Save the element of the songs' list choosen
-            Object listItem = browserArrayAdapter.getItem(listPosition);
-            switch(mainMenuItem) {
-                case MENU_SETASBASEFOLDER:
-                    activity.setBaseFolder((File)listItem);
-                    break;
-                case MENU_RELOADSONGINFO:
-                    BrowserDirectory.reloadSongFromDisk((BrowserSong)listItem);
-                    Toast.makeText(activity, R.string.reloadSongInfoDone, Toast.LENGTH_SHORT).show();
-                    updateListView();
-                    break;
-            }
-        } else { // Click on an item of the submenu
-            Object listItem = browserArrayAdapter.getItem(listPosition);
-            switch(mainMenuItem) {
-                case MENU_ADDTOPLAYLIST:
-                    ArrayList<Playlist> playlists = Playlists.getPlaylists();
-                    int selectedPlaylist = item.getItemId();
-                    if(listItem instanceof File) {
-                        addFolderToPlaylist(playlists.get(selectedPlaylist), (File)listItem);
-                    } else if(listItem instanceof BrowserSong) {
-                        playlists.get(selectedPlaylist).addSong((BrowserSong)listItem);
-                    }
-                    break;
-            }
-        }
-		
-		return true;
 	}
 	
 	@Override
 	public void updateListView() {
 		updateListView(true);
 	}
-	
-	private void updateListView(boolean restoreOldPosition) {
+
+    @Override
+    public void onHeaderClick() {
+        gotoParentDir();
+    }
+
+    @Override public void onFloatingButtonClick() {}
+
+    private void updateListView(boolean restoreOldPosition) {
 		if(activity==null) return;
 		BrowserDirectory currentDirectory = ((MusicPlayerApplication)activity.getApplication()).getCurrentDirectory();
 		
@@ -138,23 +65,24 @@ public class BrowserFragment extends MusicPlayerFragment implements OnItemClickL
 			initializeCurrentDirectory();
 			return;
 		}
+
+        setHeaderText(getCurrentDirectoryName(currentDirectory));
 		
     	ArrayList<File> browsingSubdirs = currentDirectory.getSubdirs();
         ArrayList<BrowserSong> browsingSongs = currentDirectory.getSongs();
         ArrayList<Object> items = new ArrayList<Object>();
-        items.add(new Action(Action.ACTION_GO_BACK, getCurrentDirectoryName(currentDirectory)));
         items.addAll(browsingSubdirs);
         items.addAll(browsingSongs);
         BrowserSong playingSong = null;
         if(activity.getCurrentPlayingItem() instanceof BrowserSong) playingSong = (BrowserSong)activity.getCurrentPlayingItem();
-        browserArrayAdapter = new BrowserArrayAdapter(activity, items, playingSong);
-		
+        BrowserArrayAdapter browserArrayAdapter = new BrowserArrayAdapter(this, items, playingSong);
+
 		if(restoreOldPosition) {
-        	Parcelable state = listViewBrowser.onSaveInstanceState();
-        	listViewBrowser.setAdapter(browserArrayAdapter);
-        	listViewBrowser.onRestoreInstanceState(state);
+        	Parcelable state = list.onSaveInstanceState();
+        	list.setAdapter(browserArrayAdapter);
+        	list.onRestoreInstanceState(state);
         } else {
-        	listViewBrowser.setAdapter(browserArrayAdapter);
+        	list.setAdapter(browserArrayAdapter);
         }
 	}
 	
@@ -171,15 +99,16 @@ public class BrowserFragment extends MusicPlayerFragment implements OnItemClickL
 	}
 	
 	public void scrollToSong(BrowserSong song) {
-		for(int i=0; i<browserArrayAdapter.getCount(); i++) {
-			Object item = browserArrayAdapter.getItem(i);
+        ListAdapter adapter = list.getAdapter();
+		for(int i=0; i<adapter.getCount(); i++) {
+			Object item = adapter.getItem(i);
 			if(item instanceof BrowserSong) {
 				if(((BrowserSong)item).equals(song)) {
 					final int position = i;
-					listViewBrowser.post(new Runnable() {
+					list.post(new Runnable() {
 						@Override
 						public void run() {
-							listViewBrowser.smoothScrollToPosition(position);
+							list.smoothScrollToPosition(position);
 						}
 					});
 					break;
@@ -205,7 +134,7 @@ public class BrowserFragment extends MusicPlayerFragment implements OnItemClickL
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Object item = browserArrayAdapter.getItem(position);
+		Object item = list.getAdapter().getItem(position);
 		if (item instanceof File) {
 			File newDirectory = (File) item;
 			gotoDirectory(newDirectory, null);
@@ -253,15 +182,15 @@ public class BrowserFragment extends MusicPlayerFragment implements OnItemClickL
 	}
 	
 	public void gotoDirectory(File newDirectory, BrowserSong scrollToSong) {
-		lastFolderPosition = listViewBrowser.getFirstVisiblePosition();
+		lastFolderPosition = list.getFirstVisiblePosition();
 		new ChangeDirTask(newDirectory, scrollToSong, -1).execute();
 	}
 	
-	private void addFolderToPlaylist(Playlist playlist, File folder) {
+	public void addFolderToPlaylist(Playlist playlist, File folder) {
 		new AddFolderToPlaylistTask(playlist, folder).execute();
 	}
-	
-	private class ChangeDirTask extends AsyncTask<Void, Void, Boolean> {
+
+    private class ChangeDirTask extends AsyncTask<Void, Void, Boolean> {
 		private File newDirectory;
 		private BrowserSong gotoSong;
 		private int listScrolling;
@@ -291,7 +220,7 @@ public class BrowserFragment extends MusicPlayerFragment implements OnItemClickL
 					scrollToSong(gotoSong);
 				}
 				if(listScrolling>0) {
-					listViewBrowser.setSelectionFromTop(listScrolling, 0);
+					list.setSelectionFromTop(listScrolling, 0);
 				}
 			} else {
 				Toast.makeText(activity, R.string.dirError, Toast.LENGTH_SHORT).show();

@@ -123,4 +123,9 @@ public class Playlist {
 		Playlist p2 = (Playlist)o;
 		return id==p2.id;
 	}
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

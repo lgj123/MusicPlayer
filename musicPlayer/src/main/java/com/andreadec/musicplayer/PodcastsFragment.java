@@ -25,31 +25,17 @@ import android.app.*;
 import android.content.*;
 import android.graphics.*;
 import android.os.*;
-import android.preference.*;
 import android.view.*;
-import android.view.ContextMenu.*;
 import android.widget.*;
-import android.widget.AdapterView.*;
 
-public class PodcastsFragment extends MusicPlayerFragment implements OnItemClickListener {
-	private ListView listViewPodcasts;
-	private PodcastsArrayAdapter adapter;
+public class PodcastsFragment extends MusicPlayerFragment {
 	private Podcast currentPodcast; // if null, show podcasts' list
-	private SharedPreferences preferences;
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (container == null) return null;
 		View view = inflater.inflate(R.layout.layout_simple_list, container, false);
-		listViewPodcasts = (ListView)view.findViewById(R.id.listView);
-		listViewPodcasts.setOnItemClickListener(this);
-		registerForContextMenu(listViewPodcasts);
+		initialize(view);
 		updateListView();
 		return view;
 	}
@@ -61,50 +47,6 @@ public class PodcastsFragment extends MusicPlayerFragment implements OnItemClick
 	}
 	
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
-		int position = ((AdapterContextMenuInfo)menuInfo).position;
-		
-		Object item = adapter.getItem(position);
-		if(item instanceof Action) return;
-		
-		super.onCreateContextMenu(menu, view, menuInfo);
-		MenuInflater inflater = getActivity().getMenuInflater();
-		inflater.inflate(R.menu.contextmenu_editdelete, menu);
-
-		if(item instanceof Podcast) {
-			menu.setHeaderTitle(((Podcast)item).getName());
-			menu.removeItem(R.id.menu_edit);
-		} else if(item instanceof PodcastEpisode) {
-			PodcastEpisode podcastEpisode = (PodcastEpisode)item;
-			menu.setHeaderTitle(podcastEpisode.getTitle());
-			menu.removeItem(R.id.menu_edit);
-		}
-	}
-	
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		int position = ((AdapterView.AdapterContextMenuInfo)item.getMenuInfo()).position;
-		Object listItem = adapter.getItem(position);
-		if(listItem instanceof Podcast) {
-			Podcast podcast = (Podcast)listItem;
-			switch (item.getItemId()) {
-			case R.id.menu_delete:
-				deletePodcast(podcast);
-				return true;
-			}
-		} else if(listItem instanceof PodcastEpisode) {
-			switch (item.getItemId()) {
-			case R.id.menu_delete:
-				PodcastEpisode podcastEpisode = (PodcastEpisode)listItem;
-				podcastEpisode.getPodcast().deleteEpisode(podcastEpisode);
-				updateListView();
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	@Override
 	public void updateListView() {
 		updateListView(false);
 	}
@@ -112,38 +54,32 @@ public class PodcastsFragment extends MusicPlayerFragment implements OnItemClick
 	public void updateListView(boolean reloadFromDatabase) {
 		ArrayList<Object> items = new ArrayList<Object>();
 		if(currentPodcast==null) {
-			items.add(new Action(Action.ACTION_NEW, getResources().getString(R.string.addPodcast)));
 			ArrayList<Podcast> podcasts = Podcast.getPodcasts();
 			items.addAll(podcasts);
+            setHeaderVisible(false);
+            setFloatingButtonImage(R.drawable.newcontent);
+            setEmptyViewMessage(R.string.noPodcasts);
 		} else {
 			if(reloadFromDatabase) currentPodcast.loadItemsFromDatabase();
-			items.add(new Action(Action.ACTION_GO_BACK, currentPodcast.getName()));
-			items.add(new Action(Action.ACTION_UPDATE, getResources().getString(R.string.update)));
-			items.addAll(currentPodcast.getEpisodes());
+            setHeaderVisible(true);
+            setFloatingButtonImage(R.drawable.refresh);
+            setEmptyViewMessage(R.string.podcastEmpty);
+            setHeaderText(currentPodcast.getName());
+            items.addAll(currentPodcast.getEpisodes());
 		}
 		PodcastEpisode currentPodcastEpisode = null;
 		MainActivity activity = (MainActivity)getActivity();
 		if(activity.getCurrentPlayingItem() instanceof PodcastEpisode) currentPodcastEpisode = (PodcastEpisode)activity.getCurrentPlayingItem();
-		adapter = new PodcastsArrayAdapter((MainActivity)getActivity(), items, currentPodcastEpisode);
-		Parcelable state = listViewPodcasts.onSaveInstanceState();
-		listViewPodcasts.setAdapter(adapter);
-		listViewPodcasts.onRestoreInstanceState(state);
+        PodcastsArrayAdapter adapter = new PodcastsArrayAdapter(this, items, currentPodcastEpisode);
+		Parcelable state = list.onSaveInstanceState();
+		list.setAdapter(adapter);
+		list.onRestoreInstanceState(state);
 	}
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Object item = adapter.getItem(position);
-		if(item instanceof Action) {
-			Action action = (Action)item;
-			if(action.action==Action.ACTION_GO_BACK) {
-				currentPodcast = null;
-				updateListView();
-			} else if(action.action==Action.ACTION_UPDATE) {
-				new UpdatePodcastTask(currentPodcast).execute();
-			} else if(action.action==Action.ACTION_NEW) {
-				addPodcast();
-			}
-		} else if(item instanceof Podcast) {
+		Object item = list.getAdapter().getItem(position);
+		if(item instanceof Podcast) {
 			openPodcast((Podcast)item);
 		} else if(item instanceof PodcastEpisode) {
 			final PodcastEpisode podcastEpisode = (PodcastEpisode)item;
@@ -275,7 +211,7 @@ public class PodcastsFragment extends MusicPlayerFragment implements OnItemClick
 		dialog.show();
 	}
 	
-	private void deletePodcast(final Podcast podcast) {
+	public void deletePodcast(final Podcast podcast) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(podcast.getName());
 		builder.setMessage(R.string.removePodcastConfirm);
@@ -288,6 +224,11 @@ public class PodcastsFragment extends MusicPlayerFragment implements OnItemClick
 		builder.setNegativeButton(R.string.no, null);
 		builder.show();
 	}
+
+    public void deletePodcastEpisode(PodcastEpisode podcastEpisode) {
+        podcastEpisode.getPodcast().deleteEpisode(podcastEpisode);
+        updateListView();
+    }
 	
 	public void removeAllEpisodes() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -326,8 +267,20 @@ public class PodcastsFragment extends MusicPlayerFragment implements OnItemClick
 		builder.setNegativeButton(R.string.no, null);
 		builder.show();
 	}
-	
-	private class UpdatePodcastTask extends AsyncTask<Void, Void, Boolean> {
+
+    @Override
+    public void onHeaderClick() {
+        currentPodcast = null;
+        updateListView();
+    }
+
+    @Override
+    public void onFloatingButtonClick() {
+        if(currentPodcast==null) addPodcast();
+        else new UpdatePodcastTask(currentPodcast).execute();
+    }
+
+    private class UpdatePodcastTask extends AsyncTask<Void, Void, Boolean> {
 		private ProgressDialog progressDialog;
 		private Podcast podcast;
 		public UpdatePodcastTask(Podcast podcast) {
@@ -405,15 +358,16 @@ public class PodcastsFragment extends MusicPlayerFragment implements OnItemClick
 	public void gotoPlayingItemPosition(PlayableItem playingItem) {
 		PodcastEpisode playingEpisode = (PodcastEpisode)playingItem;
 		openPodcast(playingEpisode.getPodcast());
+        ListAdapter adapter = list.getAdapter();
 		for(int i=0; i<adapter.getCount(); i++) {
 			Object item = adapter.getItem(i);
 			if(item instanceof PodcastEpisode) {
 				if(item.equals(playingEpisode)) {
 					final int position = i;
-					listViewPodcasts.post(new Runnable() {
+					list.post(new Runnable() {
 						@Override
 						public void run() {
-							listViewPodcasts.smoothScrollToPosition(position);
+							list.smoothScrollToPosition(position);
 						}
 					});
 					break;

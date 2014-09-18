@@ -22,8 +22,6 @@
     android:id="@+id/layoutPlaybackControls"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginRight="5dp"
-    android:layout_marginTop="5dp"
     android:visibility="gone" >
 
     <ImageButton
@@ -33,7 +31,7 @@
         android:src="@drawable/previous"
         android:contentDescription="@string/previous"
         android:layout_marginLeft="3dp"
-        android:background="@drawable/orange_button" />
+        android:background="@android:color/transparent" />
 
     <ImageButton
         android:id="@+id/imageButtonPlayPause"
@@ -42,7 +40,7 @@
         android:src="@drawable/play"
         android:contentDescription="@string/play"
         android:layout_marginLeft="3dp"
-        android:background="@drawable/orange_button" />
+        android:background="@android:color/transparent" />
 
     <ImageButton
         android:id="@+id/imageButtonNext"
@@ -51,6 +49,6 @@
         android:src="@drawable/next"
         android:contentDescription="@string/next"
         android:layout_marginLeft="3dp"
-        android:background="@drawable/orange_button" />
+        android:background="@android:color/transparent" />
 
 </LinearLayout>

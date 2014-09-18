@@ -16,80 +16,44 @@
 
 package com.andreadec.musicplayer;
 
-import java.util.*;
-
 import android.app.*;
 import android.content.*;
 import android.os.*;
 import android.view.*;
-import android.view.ContextMenu.*;
-import android.widget.AdapterView.*;
 import android.widget.*;
 
 import com.andreadec.musicplayer.adapters.*;
 
-public class RadioFragment extends MusicPlayerFragment implements OnItemClickListener {
-	private ListView listViewRadios;
+public class RadioFragment extends MusicPlayerFragment {
 	private RadioArrayAdapter adapter;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (container == null) return null;
 		View view = inflater.inflate(R.layout.layout_simple_list, container, false);
-		listViewRadios = (ListView)view.findViewById(R.id.listView);
-		listViewRadios.setOnItemClickListener(this);
-		registerForContextMenu(listViewRadios);
+		initialize(view);
+        setHeaderVisible(false);
+        setEmptyViewMessage(R.string.noRadios);
 		updateListView();
 		return view;
 	}
 	
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, view, menuInfo);
-		int position = ((AdapterContextMenuInfo)menuInfo).position;
-		if(position==0) return;
-		MenuInflater inflater = getActivity().getMenuInflater();
-		inflater.inflate(R.menu.contextmenu_editdelete, menu);
-		menu.setHeaderTitle(((Radio)(adapter.getItem(position))).getTitle());
-	}
-	
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		int position = ((AdapterView.AdapterContextMenuInfo)item.getMenuInfo()).position;
-		switch (item.getItemId()) {
-		case R.id.menu_edit:
-			editRadio((Radio)adapter.getItem(position));
-			return true;
-		case R.id.menu_delete:
-			deleteRadio((Radio)adapter.getItem(position));
-			return true;
-		}
-		return false;
-	}
-	
-	@Override
 	public void updateListView() {
-		ArrayList<Object> items = new ArrayList<Object>();
-		items.add(new Action(Action.ACTION_NEW, getResources().getString(R.string.addRadio)));
-		items.addAll(Radio.getRadios());
 		MainActivity activity = (MainActivity)getActivity();
 		Radio playingRadio = null;
 		if(activity.getCurrentPlayingItem() instanceof Radio) playingRadio = (Radio)activity.getCurrentPlayingItem();
-	    adapter = new RadioArrayAdapter((MainActivity)getActivity(), items, playingRadio);
-	    listViewRadios.setAdapter(adapter);
+	    adapter = new RadioArrayAdapter(this, Radio.getRadios(), playingRadio);
+	    list.setAdapter(adapter);
 	}
-	
-	@Override
+
+    @Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Object item = adapter.getItem(position);
-		if(item instanceof Action) {
-			editRadio(null);
-		} else if(item instanceof Radio) {
-			((MainActivity)getActivity()).playRadio((Radio)item);
-		}
+		((MainActivity)getActivity()).playRadio((Radio)item);
 	}
 	
-	private void deleteRadio(final Radio radio) {
+	public void deleteRadio(final Radio radio) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(R.string.delete);
 		builder.setMessage(getResources().getString(R.string.deleteRadioConfirm));
@@ -103,7 +67,7 @@ public class RadioFragment extends MusicPlayerFragment implements OnItemClickLis
 		builder.show();
 	}
 	
-	private void editRadio(final Radio oldRadio) {
+	public void editRadio(final Radio oldRadio) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		int title = oldRadio==null ? R.string.addRadio : R.string.edit;
 		builder.setTitle(getResources().getString(title));
@@ -142,17 +106,13 @@ public class RadioFragment extends MusicPlayerFragment implements OnItemClickLis
 		dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 		dialog.show();
 	}
-	
-	public void newRadio() {
-		editRadio(null);
-	}
 
 	@Override
 	public boolean onBackPressed() {
 		return false;
 	}
 
-	@Override
+    @Override
 	public void gotoPlayingItemPosition(PlayableItem playingItem) {
 		Radio playingRadio = (Radio)playingItem;
 		for(int i=0; i<adapter.getCount(); i++) {
@@ -160,10 +120,10 @@ public class RadioFragment extends MusicPlayerFragment implements OnItemClickLis
 			if(item instanceof Radio) {
 				if(item.equals(playingRadio)) {
 					final int position = i;
-					listViewRadios.post(new Runnable() {
+					list.post(new Runnable() {
 						@Override
 						public void run() {
-							listViewRadios.smoothScrollToPosition(position);
+							list.smoothScrollToPosition(position);
 						}
 					});
 					break;
@@ -171,4 +131,10 @@ public class RadioFragment extends MusicPlayerFragment implements OnItemClickLis
 			}
 		}
 	}
+
+    @Override
+    public void onFloatingButtonClick() {
+        editRadio(null);
+    }
+    @Override public void onHeaderClick() {}
 }

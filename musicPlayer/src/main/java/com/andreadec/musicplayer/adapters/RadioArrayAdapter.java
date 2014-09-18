@@ -23,63 +23,66 @@ import android.widget.*;
 
 import com.andreadec.musicplayer.*;
 
-public class RadioArrayAdapter extends MusicListArrayAdapter {
-	private final static int TYPE_ACTION=0, TYPE_RADIO=1;
+public class RadioArrayAdapter extends ArrayAdapter<Radio> {
 	private Radio playingRadio;
+    private ArrayList<Radio> values;
+    private LayoutInflater inflater;
+    private RadioFragment fragment;
  
-	public RadioArrayAdapter(MainActivity activity, ArrayList<Object> values, Radio playingRadio) {
-		super(activity, values);
+	public RadioArrayAdapter(RadioFragment fragment, ArrayList<Radio> values, Radio playingRadio) {
+        super(fragment.getActivity(), R.layout.radio_item, values);
+        this.fragment = fragment;
+        this.values = values;
 		this.playingRadio = playingRadio;
-	}
-	
-	@Override
-	public int getViewTypeCount() {
-		return 2;
-	}
-	@Override
-	public int getItemViewType(int position) {
-		Object value = values.get(position);
-		if(value instanceof Action) return TYPE_ACTION;
-		else return TYPE_RADIO;
+        inflater = fragment.getActivity().getLayoutInflater();
 	}
 
 	@Override
 	public View getView(int position, View view, ViewGroup parent) {
-		Object item = values.get(position);
-		int type = getItemViewType(position);
+        final Radio radio = (Radio)values.get(position);
 		ViewHolder viewHolder;
 		
 		if(view==null) {
 			viewHolder = new ViewHolder();
-			if(type==TYPE_ACTION) {
-				view = inflater.inflate(R.layout.action_item, parent, false);
-				viewHolder.text = (TextView)view.findViewById(R.id.textView);
-				viewHolder.image = (ImageView)view.findViewById(R.id.imageView);
-			} else if(type==TYPE_RADIO) {
-				view = inflater.inflate(R.layout.radio_item, parent, false);
-				viewHolder.text = (TextView)view.findViewById(R.id.textViewRadioItem);
-				viewHolder.image = (ImageView)view.findViewById(R.id.imageViewItemImage);
-				viewHolder.card = view.findViewById(R.id.card);
-			}
+            view = inflater.inflate(R.layout.radio_item, parent, false);
+            viewHolder.text = (TextView)view.findViewById(R.id.textViewRadioItem);
+            viewHolder.image = (ImageView)view.findViewById(R.id.imageViewItemImage);
+            viewHolder.card = view.findViewById(R.id.card);
+            viewHolder.menu = (ImageButton)view.findViewById(R.id.buttonMenu);
 		} else {
 			viewHolder = (ViewHolder)view.getTag();
 		}
-		
-		if(type==TYPE_ACTION) {
-			Action action = (Action)item;
-			viewHolder.text.setText(action.msg);
-			viewHolder.image.setImageResource(R.drawable.newcontent);
-		} else if(type==TYPE_RADIO) {
-			Radio radio = (Radio)item;
-			viewHolder.text.setText(radio.getTitle());
-			if(radio.equals(playingRadio)) {
-				viewHolder.card.setBackgroundResource(R.drawable.card_playing);
-				viewHolder.image.setImageResource(R.drawable.play_orange);
-			} else {
-				viewHolder.card.setBackgroundResource(R.drawable.card);
-				viewHolder.image.setImageResource(R.drawable.radio);
-			}
-		}
+
+        viewHolder.text.setText(radio.getTitle());
+        if(radio.equals(playingRadio)) {
+            viewHolder.card.setBackgroundResource(R.drawable.card_playing);
+            viewHolder.image.setImageResource(R.drawable.play_orange);
+        } else {
+            viewHolder.card.setBackgroundResource(R.drawable.card);
+            viewHolder.image.setImageResource(R.drawable.radio);
+        }
+        final PopupMenu popup = new PopupMenu(fragment.getActivity(), viewHolder.menu);
+        popup.getMenuInflater().inflate(R.menu.contextmenu_editdelete, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                switch(item.getItemId()) {
+                    case R.id.menu_edit:
+                        fragment.editRadio(radio);
+                        return true;
+                    case R.id.menu_delete:
+                        fragment.deleteRadio(radio);
+                        return true;
+                }
+                return true;
+            }
+        });
+        viewHolder.menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popup.show();
+            }
+        });
+        viewHolder.menu.setFocusable(false);
 		
 		view.setTag(viewHolder);
 		return view;
@@ -89,5 +92,6 @@ public class RadioArrayAdapter extends MusicListArrayAdapter {
 		public TextView text;
 		public ImageView image;
 		public View card;
+        public ImageButton menu;
 	}
 }

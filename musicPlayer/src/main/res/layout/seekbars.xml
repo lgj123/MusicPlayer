@@ -31,18 +31,18 @@
 			android:layout_height="wrap_content"
 			android:src="@drawable/expand"
 			android:layout_marginRight="10dp"
-			android:background="@drawable/orange_button"
+			android:background="@android:color/transparent"
 			android:visibility="gone"
 			android:layout_alignParentRight="true" />
 		<SeekBar
 			android:id="@+id/seekBar1"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="5dp"
 			android:layout_marginBottom="5dp"
 			android:layout_marginLeft="10dp"
 			android:layout_marginRight="10dp"
-			android:layout_toLeftOf="@id/imageButtonShowSeekbar2" />
+			android:layout_toLeftOf="@id/imageButtonShowSeekbar2"
+            style="@style/WhiteSeekBar" />
 	</RelativeLayout>
 	<SeekBar
 		android:id="@+id/seekBar2"
@@ -53,6 +53,7 @@
 		android:layout_marginLeft="10dp"
 		android:layout_marginRight="10dp"
 		android:layout_toLeftOf="@id/imageButtonShowSeekbar2"
-		android:visibility="gone" />
+		android:visibility="gone"
+        style="@style/WhiteSeekBar" />
 
 </LinearLayout>

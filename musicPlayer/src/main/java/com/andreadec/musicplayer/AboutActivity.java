@@ -65,12 +65,9 @@ public class AboutActivity extends Activity {
         about += "<p>Copyright 2012 Jake Wharton</p>";
         about += resources.getString(R.string.apacheLicense);
         
-        about += "<h5>System Bar Tint</h5>";
-        about += "<p>Copyright 2013 readyState Software Limited</p>";
-        about += resources.getString(R.string.apacheLicense);
-        
-        about += "<h5>"+resources.getString(R.string.icons)+"</h5>";
+        about += "<h5>"+resources.getString(R.string.artworks)+"</h5>";
         about += "<p>Some icons are from the <a href=\"http://tango.freedesktop.org/\">Tango Desktop Project</a>, released into the Public Domain.</p>";
+        about += "<p>Some UI elements were generated using <a href=\"http://android-holo-colors.com\">Android Holo Colors</a> by Jérôme Van Der Linden, licensed under Creative Commons Attribution 3.0 Unported License.</p>";
         textViewAbout.setText(Html.fromHtml(about));
         
         

@@ -35,67 +35,80 @@
 		<LinearLayout
 		    android:layout_width="match_parent"
 		    android:layout_height="match_parent"
-		    android:orientation="vertical" >
+		    android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/controls"><!--android:background="@color/actionBarBackground"-->
 			
-			<RelativeLayout
-		        android:id="@+id/layoutTop"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:orientation="horizontal" >
-		        
-		        <ImageView
-		            android:id="@+id/imageViewSongImage"
-		            android:layout_width="@dimen/songImageSize"
-		            android:layout_height="@dimen/songImageSize"
-		            android:scaleType="fitCenter"
-		            android:visibility="gone"
-		            android:layout_alignParentRight="true" />
-		
-			    <LinearLayout
-			        android:layout_toLeftOf="@id/imageViewSongImage"
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content"
-					android:orientation="vertical"
-					android:layout_marginLeft="2dp"
-					android:layout_marginRight="2dp"
-					android:paddingTop="5dp" >
-			        
-			           <TextView
-			               android:id="@+id/textViewArtist"
-			               android:layout_width="fill_parent"
-			               android:layout_height="wrap_content"
-			               android:text="@string/noSong"
-			               android:textAppearance="?android:attr/textAppearanceMedium" />
-			
-			           <TextView
-			               android:id="@+id/textViewTitle"
-			               android:layout_width="wrap_content"
-			               android:layout_height="wrap_content"
-			               android:textAppearance="?android:attr/textAppearanceMedium"
-			               android:textStyle="bold" />
-			           
-			           <LinearLayout
-			               android:orientation="horizontal"
-			               android:layout_width="match_parent"
-			               android:layout_height="wrap_content" >
-			               
-			               <include layout="@layout/playback_controls" />
-			               
-			               <TextView
-				               android:id="@+id/textViewTime"
-				               android:layout_width="fill_parent"
-				               android:layout_height="wrap_content"
-				               android:text="@string/noSong"
-				               android:textAppearance="?android:attr/textAppearanceMedium"
-				               android:layout_gravity="center_vertical" />
-			               
-			           </LinearLayout>
-			
-			    </LinearLayout>
-			    
-			</RelativeLayout>
-			
-			<include layout="@layout/seekbars" />
+                <RelativeLayout
+                    android:id="@+id/layoutTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageViewSongImage"
+                        android:layout_width="@dimen/songImageSize"
+                        android:layout_height="@dimen/songImageSize"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone"
+                        android:layout_alignParentRight="true" />
+
+                    <LinearLayout
+                        android:layout_toLeftOf="@id/imageViewSongImage"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp" >
+
+                           <TextView
+                               android:id="@+id/textViewArtist"
+                               android:layout_width="fill_parent"
+                               android:layout_height="wrap_content"
+                               android:text="@string/noSong"
+                               android:textColor="@color/white"
+                               android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                           <TextView
+                               android:id="@+id/textViewTitle"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:textColor="@color/white"
+                               android:textAppearance="?android:attr/textAppearanceMedium"
+                               android:textStyle="bold" />
+
+                           <LinearLayout
+                               android:orientation="horizontal"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_marginTop="2dp"
+                               android:layout_marginBottom="2dp">
+
+                               <include layout="@layout/playback_controls" />
+
+                               <TextView
+                                   android:id="@+id/textViewTime"
+                                   android:layout_width="fill_parent"
+                                   android:layout_height="wrap_content"
+                                   android:text="@string/noSong"
+                                   android:textColor="@color/white"
+                                   android:textAppearance="?android:attr/textAppearanceMedium"
+                                   android:paddingLeft="5dp"
+                                   android:layout_gravity="center_vertical" />
+
+                           </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <include layout="@layout/seekbars" />
+
+            </LinearLayout>
 		    
 	        <FrameLayout
 				android:layout_width="match_parent"

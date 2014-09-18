@@ -24,6 +24,15 @@
 		<item name="android:layout_marginTop">4dp</item>
 		<item name="android:layout_marginBottom">4dp</item>
 	</style>
+    <style name="overflowButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:src">@drawable/overflow</item>
+    </style>
     <style name="notificationButton">
         <item name="android:layout_width">@dimen/notificationButtonsSize</item>
         <item name="android:layout_height">@dimen/notificationButtonsSize</item>
@@ -36,8 +45,19 @@
         <item name="android:layout_height">@dimen/notificationQuitButtonSize</item>
     </style>
 
+    <style name="navigationCheckButton">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:background">@drawable/navigation_button_off</item>
+    </style>
+
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!--<item name="android:seekBarStyle">@style/SeekBar</item>-->
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
@@ -51,5 +71,24 @@
 
     <style name="MainActivityTheme" parent="AppTheme">
         <item name="android:windowBackground">@color/lightGrey</item>
+    </style>
+
+    <style name="floatingButton">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/floating_button</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+    </style>
+
+
+
+    <!-- Generated with http://android-holo-colors.com -->
+    <style name="WhiteSeekBar" parent="android:Widget.Holo.Light.SeekBar">
+        <item name="android:progressDrawable">@drawable/seekbar_progress_horizontal_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/seekbar_progress_horizontal_holo_light</item>
+        <item name="android:thumb">@drawable/seekbar_control_selector_holo_light</item>
     </style>
 </resources>

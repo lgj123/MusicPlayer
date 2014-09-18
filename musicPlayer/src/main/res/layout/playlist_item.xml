@@ -49,12 +49,6 @@
 
     <ImageButton
         android:id="@+id/buttonMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="6dp"
-        android:layout_marginTop="6dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/overflow" />
+        style="@style/overflowButton" />
 
 </RelativeLayout>

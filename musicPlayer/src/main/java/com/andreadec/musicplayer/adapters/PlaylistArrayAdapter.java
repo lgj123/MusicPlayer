@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 Andrea De Cesare
+ * Copyright 2012-2014 Andrea De Cesare
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import android.view.*;
 import android.widget.*;
 import com.andreadec.musicplayer.*;
 import com.nhaarman.listviewanimations.ArrayAdapter;
+
 import java.util.ArrayList;
 
 public class PlaylistArrayAdapter extends ArrayAdapter<Object> {
@@ -28,7 +29,7 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Object> {
     private ArrayList<Object> values;
     private PlaylistFragment fragment;
     private LayoutInflater inflater;
-	private final static int TYPE_ACTION=0, TYPE_PLAYLIST=1, TYPE_SONG=2;
+	private final static int TYPE_PLAYLIST=0, TYPE_SONG=1;
  
 	public PlaylistArrayAdapter(PlaylistFragment fragment, ArrayList<Object> values, PlaylistSong playingSong) {
 		super(values);
@@ -51,22 +52,15 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Object> {
 	
 	@Override
 	public int getViewTypeCount() {
-		return 3;
+		return 2;
 	}
 	@Override
 	public int getItemViewType(int position) {
 		Object value = values.get(position);
-		if(value instanceof Action) return TYPE_ACTION;
-		else if(value instanceof Playlist) return TYPE_PLAYLIST;
+		if(value instanceof Playlist) return TYPE_PLAYLIST;
 		else if(value instanceof PlaylistSong) return TYPE_SONG;
 		return -1;
 	}
-
-    @Override
-    public void swapItems(int a, int b) {
-        if(a==0 || b==0) return;
-        super.swapItems(a, b);
-    }
 
     @Override
 	public View getView(int position, View view, ViewGroup parent) {
@@ -75,11 +69,7 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Object> {
 		int type = getItemViewType(position);
 		if(view==null) {
 			viewHolder = new ViewHolder();
-			if(type==TYPE_ACTION) {
-				view = inflater.inflate(R.layout.action_item, parent, false);
-				viewHolder.title = (TextView)view.findViewById(R.id.textView);
-				viewHolder.image = (ImageView)view.findViewById(R.id.imageView);
-			} else if(type==TYPE_PLAYLIST) {
+			if(type==TYPE_PLAYLIST) {
 				view = inflater.inflate(R.layout.playlist_item, parent, false);
 				viewHolder.title = (TextView)view.findViewById(R.id.textViewName);
 				viewHolder.image = (ImageView)view.findViewById(R.id.imageViewItemImage);
@@ -90,21 +80,14 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Object> {
 				viewHolder.artist = (TextView)view.findViewById(R.id.textViewSongItemArtist);
 				viewHolder.image = (ImageView)view.findViewById(R.id.imageViewItemImage);
 				viewHolder.card = view.findViewById(R.id.card);
+                view.findViewById(R.id.buttonMenu).setVisibility(View.GONE);
 			}
 		} else {
 			viewHolder = (ViewHolder)view.getTag();
 		}
 		
 		
-		if(type==TYPE_ACTION) {
-			Action action = (Action)value;
-			viewHolder.title.setText(action.msg);
-			if(action.action==Action.ACTION_GO_BACK) {
-				viewHolder.image.setImageResource(R.drawable.back);
-			} else if(action.action==Action.ACTION_NEW) {
-				viewHolder.image.setImageResource(R.drawable.newcontent);
-			}
-		} else if(type==TYPE_PLAYLIST) {
+		if(type==TYPE_PLAYLIST) {
 			final Playlist playlist = (Playlist)value;
 			viewHolder.title.setText(playlist.getName());
             final PopupMenu popup = new PopupMenu(fragment.getActivity(), viewHolder.menu);

@@ -159,6 +159,12 @@
 	<string name="repeatLastSearch">Ripeti l\'ultima ricerca</string>
     <string name="reloadSongInfo">Ricarica informazioni brano</string>
     <string name="reloadSongInfoDone">Informazioni aggiornate</string>
+    <string name="noPlaylists">Per aggiungere una playlist tocca il pulsante +!</string>
+    <string name="playlistEmpty">Non ci sono brani in questa playlist. Aggiungili dal browser!</string>
+    <string name="folderEmpty">Non ci sono file in questa cartella.</string>
+    <string name="noRadios">Per aggiungere una radio tocca il pulsante +!</string>
+    <string name="noPodcasts">Per aggiungere un podcast tocca il pulsante +!</string>
+    <string name="podcastEmpty">Per aggiornare gli episodi tocca il pulsante aggiorna!</string>
 	
 	<!-- Podcasts -->
 	<string name="podcast">Podcast</string>
@@ -214,7 +220,7 @@
 	<string name="specialThanks">Un ringraziamento speciale a</string>
 	<string name="libraries">Librerie</string>
 	<string name="librariesUsed">In questo progetto vengono usate le seguenti librerie open source.</string>
-	<string name="icons">Icone</string>
+	<string name="artworks">Elementi grafici</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

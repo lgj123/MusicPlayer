@@ -21,8 +21,8 @@ import java.net.*;
 import java.util.*;
 
 import com.andreadec.musicplayer.adapters.*;
-import com.readystatesoftware.systembartint.*;
 
+import android.graphics.Point;
 import android.media.AudioManager;
 import android.os.*;
 import android.preference.*;
@@ -38,7 +38,6 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.view.*;
-import android.view.WindowManager.LayoutParams;
 import android.view.View.*;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -47,6 +46,8 @@ import android.widget.SeekBar.*;
 
 public class MainActivity extends FragmentActivity implements OnClickListener, OnSeekBarChangeListener {
 	public final static int PAGE_BROWSER=0, PAGE_PLAYLISTS=1, PAGE_RADIOS=2, PAGE_PODCASTS=3;
+
+    private MusicPlayerApplication app;
 	
 	private TextView textViewArtist, textViewTitle, textViewTime;
 	private ImageButton imageButtonPrevious, imageButtonPlayPause, imageButtonNext, imageButtonShowSeekbar2;
@@ -74,14 +75,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	// Variables used to reduce computing on polling thread
 	private boolean isLengthAvailable = false;
 	private String songDurationString = "";
-	
+
 	private String[] pages;
-	private int currentPage = 0;
-	private MusicPlayerFragment currentFragment;
+    private MusicPlayerFragment currentFragment;
 	private FragmentManager fragmentManager;
 	
 	private String intentFile;
 	private BrowserSong searchSong;
+
+    public int screenSizeX, screenSizeY;
 	
 	
 	
@@ -117,14 +119,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
         } else {
         	setContentView(R.layout.layout_main);
         }
-        
+
+        app = (MusicPlayerApplication)getApplication();
+
+        Display display = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        screenSizeX = size.x;
+        screenSizeY = size.y;
+
         pages = new String[4];
         pages[PAGE_BROWSER] = getResources().getString(R.string.browser);
         pages[PAGE_PLAYLISTS] = getResources().getString(R.string.playlist);
         pages[PAGE_RADIOS] = getResources().getString(R.string.radio);
         pages[PAGE_PODCASTS] = getResources().getString(R.string.podcasts);
         fragmentManager = getSupportFragmentManager();
-        setTitle(pages[currentPage]);
+        //setTitle(pages[currentPage]);
         
         
         /* NAVIGATION DRAWER */
@@ -132,7 +142,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                setTitle(pages[currentPage]);
+                setTitle(pages[app.currentPage]);
             }
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -154,18 +164,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
         });
         buttonQuit = findViewById(R.id.navigation_buttonQuit);
         buttonQuit.setOnClickListener(this);
-        
-        
-        
-        if(Build.VERSION.SDK_INT==19) {
-        	// Android 4.4+ only
-        	getWindow().addFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        	getWindow().addFlags(LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        	SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.actionBarBackground);
-        }
-        
         
     	textViewArtist = (TextView)findViewById(R.id.textViewArtist);
         textViewTitle = (TextView)findViewById(R.id.textViewTitle);
@@ -201,11 +199,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
         textViewTime.setOnClickListener(this);
         
         serviceIntent = new Intent(this, MusicService.class);
-        
-        if(preferences.getBoolean(Constants.PREFERENCE_OPENLASTPAGEONSTART, Constants.DEFAULT_OPENLASTPAGEONSTART)) {
-        	openPage(preferences.getInt(Constants.PREFERENCE_LASTPAGE, Constants.DEFAULT_LASTPAGE));
-        } else {
-        	openPage(PAGE_BROWSER);
+
+        if(app.currentPage==-1) { // App just launched
+            if (preferences.getBoolean(Constants.PREFERENCE_OPENLASTPAGEONSTART, Constants.DEFAULT_OPENLASTPAGEONSTART)) {
+                openPage(preferences.getInt(Constants.PREFERENCE_LASTPAGE, Constants.DEFAULT_LASTPAGE));
+            } else {
+                openPage(PAGE_BROWSER);
+            }
+        } else { // App already open (this happens when screen is rotated)
+            openPage(app.currentPage);
         }
         loadSongFromIntent();
         
@@ -271,7 +273,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
             	} else if(intent.getAction().equals("com.andreadec.musicplayer.playpausechanged")) {
             		updatePlayPauseButton();
             	} else if(intent.getAction().equals("com.andreadec.musicplayer.podcastdownloadcompleted")) {
-            		if(currentPage==PAGE_PODCASTS) {
+            		if(app.currentPage==PAGE_PODCASTS) {
             			PodcastsFragment podcastsFragment = (PodcastsFragment)currentFragment;
             			podcastsFragment.updateListView(true);
             		}
@@ -310,7 +312,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
     	default:
     		return;
     	}
-    	currentPage = page;
+    	app.currentPage = page;
     	currentFragment = fragment;
     	FragmentTransaction transaction = fragmentManager.beginTransaction();
     	transaction.remove(currentFragment);
@@ -319,8 +321,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
     	transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
     	transaction.commit();
     	fragmentManager.executePendingTransactions();
-    	drawerList.setItemChecked(currentPage, true);
-    	setTitle(pages[currentPage]);
+    	drawerList.setItemChecked(app.currentPage, true);
+    	setTitle(pages[app.currentPage]);
     }
     
     /* Called before onStop or when the screen is switched off. */
@@ -525,7 +527,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
     	super.onDestroy();
     	if(preferences.getBoolean(Constants.PREFERENCE_OPENLASTPAGEONSTART, Constants.DEFAULT_OPENLASTPAGEONSTART)) {
     		SharedPreferences.Editor editor = preferences.edit();
-    		editor.putInt(Constants.PREFERENCE_LASTPAGE, currentPage);
+    		editor.putInt(Constants.PREFERENCE_LASTPAGE, app.currentPage);
     		editor.commit();
     	}
     }
@@ -539,14 +541,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
     	boolean navigationDrawerOpen = drawerLayout.isDrawerOpen(drawerContainer);
-    	if(currentPage==PAGE_BROWSER && !navigationDrawerOpen) {
+    	if(app.currentPage==PAGE_BROWSER && !navigationDrawerOpen) {
     		menu.findItem(R.id.menu_setAsBaseFolder).setVisible(true);
     		menu.findItem(R.id.menu_gotoBaseFolder).setVisible(true);
     	} else {
     		menu.findItem(R.id.menu_setAsBaseFolder).setVisible(false);
     		menu.findItem(R.id.menu_gotoBaseFolder).setVisible(false);
     	}
-    	if(currentPage==PAGE_PODCASTS && !navigationDrawerOpen) {
+    	if(app.currentPage==PAGE_PODCASTS && !navigationDrawerOpen) {
     		menu.findItem(R.id.menu_removeAllEpisodes).setVisible(true);
     		menu.findItem(R.id.menu_removeDownloadedEpisodes).setVisible(true);
     	} else {
@@ -585,7 +587,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 			showItemInfo(musicService.getCurrentPlayingItem());
 			return true;
 		case R.id.menu_setAsBaseFolder:
-			setBaseFolder(((MusicPlayerApplication)getApplication()).getCurrentDirectory().getDirectory());
+			setBaseFolder(((MusicPlayerApplication) getApplication()).getCurrentDirectory().getDirectory());
 			return true;
 		case R.id.menu_removeAllEpisodes:
 			((PodcastsFragment)currentFragment).removeAllEpisodes();
@@ -593,12 +595,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 		case R.id.menu_removeDownloadedEpisodes:
 			((PodcastsFragment)currentFragment).removeDownloadedEpisodes();
 			return true;
-		case R.id.menu_preferences:
-			startActivity(new Intent(this, PreferencesActivity.class));
-			return true;
-		case R.id.menu_quit:
-			quitApplication();
-			return true;
+        case R.id.menu_preferences:
+            startActivity(new Intent(this, PreferencesActivity.class));
+            return true;
+        case R.id.menu_quit:
+            quitApplication();
+            return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -646,14 +648,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 			musicService.toggleShake();
 			updateExtendedMenu();
 		} else if(view.equals(imageButtonShowSeekbar2)) {
-			if(seekBar2.getVisibility()==View.VISIBLE) {
-				imageButtonShowSeekbar2.setImageResource(R.drawable.expand);
-				seekBar2.setVisibility(View.GONE);
-			} else {
-				imageButtonShowSeekbar2.setImageResource(R.drawable.collapse);
-				seekBar2.setVisibility(View.VISIBLE);
-			}
-		} else if(view.equals(buttonQuit)) {
+            if (seekBar2.getVisibility() == View.VISIBLE) {
+                imageButtonShowSeekbar2.setImageResource(R.drawable.expand);
+                seekBar2.setVisibility(View.GONE);
+            } else {
+                imageButtonShowSeekbar2.setImageResource(R.drawable.collapse);
+                seekBar2.setVisibility(View.VISIBLE);
+            }
+        } else if(view.equals(buttonQuit)) {
 			quitApplication();
 		}
 	}

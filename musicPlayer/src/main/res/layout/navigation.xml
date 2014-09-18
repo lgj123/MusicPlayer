@@ -28,7 +28,7 @@
         android:id="@+id/layoutShuffleRepeatButtons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_margin="1dp"
         android:layout_marginBottom="10dp"
         android:orientation="vertical" >
 
@@ -41,28 +41,19 @@
 
             <ImageButton
                 android:id="@+id/imageButtonShuffle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/navigation_button_off"
+                style="@style/navigationCheckButton"
                 android:src="@drawable/shuffle" />
 
             <ImageButton
                 android:id="@+id/imageButtonRepeat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginLeft="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/navigation_button_off"
+                style="@style/navigationCheckButton"
                 android:src="@drawable/repeat" />
 
             <ImageButton
                 android:id="@+id/imageButtonRepeatAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginLeft="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/navigation_button_off"
+                style="@style/navigationCheckButton"
                 android:src="@drawable/repeatall" />
         </LinearLayout>
 
@@ -75,30 +66,21 @@
 
             <Button
                 android:id="@+id/buttonBassBoost"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="@drawable/navigation_button_off"
+                style="@style/navigationCheckButton"
                 android:text="@string/bassBoostButton"
                 android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/buttonEqualizer"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
                 android:layout_marginLeft="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/navigation_button_off"
+                style="@style/navigationCheckButton"
                 android:text="@string/equalizerButton"
                 android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/buttonShake"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
                 android:layout_marginLeft="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/navigation_button_off"
+                style="@style/navigationCheckButton"
                 android:text="@string/shake"
                 android:textColor="@color/white" />
         </LinearLayout>
@@ -110,13 +92,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:padding="10dp" >
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
             android:src="@drawable/navigation_cancel" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

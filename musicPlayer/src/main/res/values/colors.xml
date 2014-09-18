@@ -35,21 +35,25 @@
     <color name="orange3">#ff9909</color>
     <color name="orange4">#ffa00e</color>
     <color name="orange5">#ffa713</color>
-    <color name="orange6">#ffae18</color>
+    <!--<color name="orange6">#ffae18</color>
     <color name="orange7">#ffb61c</color>
     <color name="orange8">#ffbd21</color>
     <color name="orange9">#ffc641</color>
     <color name="orange10">#ffd060</color>
-    <color name="orange11">#ffd980</color>
+    <color name="orange11">#ffd980</color>-->
     <color name="orange12">#ffe3a0</color>
-    <color name="orange13">#ffecc0</color>
-    <color name="orange14">#fff6df</color>
-    
+    <!--<color name="orange13">#ffecc0</color>
+    <color name="orange14">#fff6df</color>-->
+
+    <color name="textOrange">@color/orange1</color>
     <color name="actionBarBackground">@color/orange2</color>
+
+    <color name="buttonOrange">@color/orange2</color>
+    <color name="buttonOrangePressed">@color/orange5</color>
     
     <color name="navigationBackground">@color/white</color>
     <color name="navigationSelection">@color/lightGrey</color>
-    <color name="navigationTextColor">@color/black</color>
+    <color name="navigationTextColor">#333333</color>
     
     <color name="cardColor">@color/white</color>
     <color name="cardPlayingColor">@color/orange12</color>

@@ -19,37 +19,43 @@ package com.andreadec.musicplayer.adapters;
 import java.io.*;
 import java.util.*;
 
-import android.graphics.*;
+import android.app.AlertDialog;
 import android.graphics.drawable.Drawable;
-import android.support.v4.util.*;
 import android.view.*;
 import android.widget.*;
 
 import com.andreadec.musicplayer.*;
 
-public class BrowserArrayAdapter extends MusicListArrayAdapter {
+public class BrowserArrayAdapter extends ArrayAdapter<Object> {
 	private BrowserSong playingSong;
 	private ImagesCache imagesCache;
     private Drawable songImage;
-	private final static int TYPE_DIRECTORY=0, TYPE_SONG=1, TYPE_ACTION=2;
+    private ArrayList<Object> values;
+    private LayoutInflater inflater;
+    private MainActivity activity;
+    private BrowserFragment fragment;
+	private final static int TYPE_DIRECTORY=0, TYPE_SONG=1;
  
-	public BrowserArrayAdapter(MainActivity activity, ArrayList<Object> values, BrowserSong playingSong) {
-		super(activity, values);
+	public BrowserArrayAdapter(BrowserFragment fragment, ArrayList<Object> values, BrowserSong playingSong) {
+        super(fragment.getActivity(), R.layout.song_item, values);
+        this.values = values;
 		this.playingSong = playingSong;
+        this.fragment = fragment;
+        activity = (MainActivity)fragment.getActivity();
 		this.imagesCache = ((MusicPlayerApplication)activity.getApplication()).imagesCache;
+        inflater = activity.getLayoutInflater();
         songImage = activity.getResources().getDrawable(R.drawable.audio);
 	}
 	
 	@Override
 	public int getViewTypeCount() {
-		return 3;
+		return 2;
 	}
 	@Override
 	public int getItemViewType(int position) {
 		Object value = values.get(position);
 		if(value instanceof File) return TYPE_DIRECTORY;
-		else if(value instanceof BrowserSong) return TYPE_SONG;
-		else return TYPE_ACTION;
+		else return TYPE_SONG;
 	}
 
 	@Override
@@ -59,33 +65,47 @@ public class BrowserArrayAdapter extends MusicListArrayAdapter {
 		ViewHolder viewHolder;
 		if(view==null) {
 			viewHolder = new ViewHolder();
-			if(type==TYPE_ACTION) {
-				view = inflater.inflate(R.layout.action_item, parent, false);
-				viewHolder.title = (TextView)view.findViewById(R.id.textView);
-				viewHolder.title.setTextColor(view.getResources().getColor(R.color.orange1));
-				viewHolder.image = (ImageView)view.findViewById(R.id.imageView);
-				viewHolder.image.setImageResource(R.drawable.back);
-			} else if(type==TYPE_DIRECTORY) {
+			if(type==TYPE_DIRECTORY) {
 				view = inflater.inflate(R.layout.folder_item, parent, false);
 				viewHolder.title = (TextView)view.findViewById(R.id.textViewFolderItemFolder);
+                viewHolder.menu = (ImageButton)view.findViewById(R.id.buttonMenu);
 			} else if(type==TYPE_SONG) {
 				view = inflater.inflate(R.layout.song_item, parent, false);
 				viewHolder.title = (TextView)view.findViewById(R.id.textViewSongItemTitle);
 				viewHolder.artist = (TextView)view.findViewById(R.id.textViewSongItemArtist);
 				viewHolder.image = (ImageView)view.findViewById(R.id.imageViewItemImage);
 				viewHolder.card = view.findViewById(R.id.card);
+                viewHolder.menu = (ImageButton)view.findViewById(R.id.buttonMenu);
 			}
 		} else {
 			viewHolder = (ViewHolder)view.getTag();
 		}
-		if(type==TYPE_ACTION) {
-			Action action = (Action)value;
-			viewHolder.title.setText(action.msg);
-		} else if(type==TYPE_DIRECTORY) {
-			File file = (File)value;
+		if(type==TYPE_DIRECTORY) {
+			final File file = (File)value;
 			viewHolder.title.setText(file.getName());
+            final PopupMenu popup = new PopupMenu(fragment.getActivity(), viewHolder.menu);
+            popup.getMenuInflater().inflate(R.menu.contextmenu_browserdirectory, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch(item.getItemId()) {
+                        case R.id.menu_addFolderToPlaylist:
+                            addToPlaylist(file);
+                            return true;
+                        case R.id.menu_setAsBaseFolder:
+                            activity.setBaseFolder(file);
+                            return true;
+                    }
+                    return true;
+                }
+            });
+            viewHolder.menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    popup.show();
+                }
+            });
 		} else if(type==TYPE_SONG) {
-			BrowserSong song = (BrowserSong)value;
+			final BrowserSong song = (BrowserSong)value;
 			String trackNumber = "";
 			if(song.getTrackNumber()!=null) trackNumber = song.getTrackNumber() + ". ";
 			viewHolder.title.setText(trackNumber + song.getTitle());
@@ -100,7 +120,38 @@ public class BrowserArrayAdapter extends MusicListArrayAdapter {
                     imagesCache.getImageAsync(song, viewHolder.image);
                 }
 			}
+            /*final PopupMenu popup = new PopupMenu(fragment.getActivity(), viewHolder.menu);
+            popup.getMenuInflater().inflate(R.menu.contextmenu_browsersong, popup.getMenu());
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch(item.getItemId()) {
+                        case R.id.menu_addToPlaylist:
+                            addToPlaylist(song);
+                            return true;
+                        case R.id.menu_reloadSongInfo:
+                            BrowserDirectory.reloadSongFromDisk(song);
+                            Toast.makeText(activity, R.string.reloadSongInfoDone, Toast.LENGTH_SHORT).show();
+                            fragment.updateListView();
+                            return true;
+                    }
+                    return true;
+                }
+            });
+            viewHolder.menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    popup.show();
+                }
+            });
+            viewHolder.menu.setFocusable(false);*/
+            viewHolder.menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addToPlaylist(song);
+                }
+            });
 		}
+        viewHolder.menu.setFocusable(false);
 		view.setTag(viewHolder);
 		return view;
 	}
@@ -110,5 +161,29 @@ public class BrowserArrayAdapter extends MusicListArrayAdapter {
 		public TextView title;
 		public ImageView image;
 		public View card;
+        public ImageButton menu;
 	}
+
+    private void addToPlaylist(final Object item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(R.string.addToPlaylist);
+        ListView list = new ListView(activity);
+        builder.setView(list);
+        final AlertDialog dialog = builder.create();
+        final ArrayAdapter<Playlist> adapter = new ArrayAdapter<Playlist>(activity, android.R.layout.simple_list_item_1, android.R.id.text1, Playlists.getPlaylists());
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Playlist playlist = adapter.getItem(position);
+                if (item instanceof File) {
+                    fragment.addFolderToPlaylist(playlist, (File)item);
+                } else {
+                    playlist.addSong((BrowserSong)item);
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 }
