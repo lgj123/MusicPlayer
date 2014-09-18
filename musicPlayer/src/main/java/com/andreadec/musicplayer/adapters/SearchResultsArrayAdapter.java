@@ -77,19 +77,25 @@ public class SearchResultsArrayAdapter extends ArrayAdapter<BrowserSong> {
         public ImageButton menu;
 	}
 
-    private void addToPlaylist(final Object item) {
+    private void addToPlaylist(final BrowserSong song) {
+        ArrayList<Playlist> playlists = Playlists.getPlaylists();
+        if(playlists.size()==0) {
+            Utils.showMessageDialog(activity, R.string.error, R.string.noPlaylists);
+            return;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.addToPlaylist);
         ListView list = new ListView(activity);
         builder.setView(list);
         final AlertDialog dialog = builder.create();
-        final ArrayAdapter<Playlist> adapter = new ArrayAdapter<Playlist>(activity, android.R.layout.simple_list_item_1, android.R.id.text1, Playlists.getPlaylists());
+        final ArrayAdapter<Playlist> adapter = new ArrayAdapter<Playlist>(activity, android.R.layout.simple_list_item_1, android.R.id.text1, playlists);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Playlist playlist = adapter.getItem(position);
-                playlist.addSong((BrowserSong)item);
+                playlist.addSong(song);
                 dialog.dismiss();
             }
         });

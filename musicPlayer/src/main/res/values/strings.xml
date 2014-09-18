@@ -160,7 +160,8 @@
 	<string name="repeatLastSearch">Repeat last search</string>
     <string name="reloadSongInfo">Reload song info</string>
     <string name="reloadSongInfoDone">Song info reloaded</string>
-    <string name="noPlaylists">To add a playlist touch the + button!</string>
+    <string name="noPlaylists">No playlists available. Please create one first!</string>
+    <string name="playlistsEmpty">To add a playlist touch the + button!</string>
     <string name="playlistEmpty">No songs in this playlist. Add them from the file browser!</string>
     <string name="folderEmpty">There are no files in this folder.</string>
     <string name="noRadios">To add a radio touch the + button!</string>

@@ -137,7 +137,7 @@ public class PlaylistFragment extends MusicPlayerFragment implements OnItemMoved
 		if(currentPlaylist==null) { // Show all playlists
             setHeaderVisible(false);
             setFloatingButtonVisible(true);
-            setEmptyViewMessage(R.string.noPlaylists);
+            setEmptyViewMessage(R.string.playlistsEmpty);
 			ArrayList<Playlist> playlists = Playlists.getPlaylists();
 			values.addAll(playlists);
 		} else {

@@ -159,7 +159,8 @@
 	<string name="repeatLastSearch">Ripeti l\'ultima ricerca</string>
     <string name="reloadSongInfo">Ricarica informazioni brano</string>
     <string name="reloadSongInfoDone">Informazioni aggiornate</string>
-    <string name="noPlaylists">Per aggiungere una playlist tocca il pulsante +!</string>
+    <string name="noPlaylists">Nessuna playlist disponibile. Devi prima crearne una!</string>
+    <string name="playlistsEmpty">Per aggiungere una playlist tocca il pulsante +!</string>
     <string name="playlistEmpty">Non ci sono brani in questa playlist. Aggiungili dal browser!</string>
     <string name="folderEmpty">Non ci sono file in questa cartella.</string>
     <string name="noRadios">Per aggiungere una radio tocca il pulsante +!</string>
