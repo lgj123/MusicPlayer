@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 Andrea De Cesare
+ * Copyright 2012-2014 Andrea De Cesare
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,6 @@ import android.widget.*;
 import com.andreadec.musicplayer.adapters.*;
 
 public class RadioFragment extends MusicPlayerFragment {
-	private RadioArrayAdapter adapter;
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (container == null) return null;
@@ -43,13 +41,13 @@ public class RadioFragment extends MusicPlayerFragment {
 		MainActivity activity = (MainActivity)getActivity();
 		Radio playingRadio = null;
 		if(activity.getCurrentPlayingItem() instanceof Radio) playingRadio = (Radio)activity.getCurrentPlayingItem();
-	    adapter = new RadioArrayAdapter(this, Radio.getRadios(), playingRadio);
+        RadioArrayAdapter adapter = new RadioArrayAdapter(this, Radio.getRadios(), playingRadio);
 	    list.setAdapter(adapter);
 	}
 
     @Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Object item = adapter.getItem(position);
+		Object item = list.getAdapter().getItem(position);
 		((MainActivity)getActivity()).playRadio((Radio)item);
 	}
 	
@@ -115,8 +113,8 @@ public class RadioFragment extends MusicPlayerFragment {
     @Override
 	public void gotoPlayingItemPosition(PlayableItem playingItem) {
 		Radio playingRadio = (Radio)playingItem;
-		for(int i=0; i<adapter.getCount(); i++) {
-			Object item = adapter.getItem(i);
+		for(int i=0; i<list.getAdapter().getCount(); i++) {
+			Object item = list.getAdapter().getItem(i);
 			if(item instanceof Radio) {
 				if(item.equals(playingRadio)) {
 					final int position = i;
