@@ -168,8 +168,12 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
         	Integer trackNumber = cursor.getInt(3);
         	if(trackNumber==-1) trackNumber=null;
         	boolean hasImage = cursor.getInt(4)==1;
-        	BrowserSong song = new BrowserSong(uri, artist, title, trackNumber, hasImage, null);
-        	results.add(song);
+            if(new File(uri).exists()) {
+                BrowserSong song = new BrowserSong(uri, artist, title, trackNumber, hasImage, null);
+                results.add(song);
+            } else {
+                deleteSongFromCache(uri);
+            }
         }
 		db.close();
 		
@@ -181,10 +185,10 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		}
 	}
 	
-	private void deleteSongFromCache(BrowserSong song) {
+	private void deleteSongFromCache(String uri) {
 		SongsDatabase songsDatabase = new SongsDatabase();
 		SQLiteDatabase db = songsDatabase.getWritableDatabase();
-		db.delete("Songs", "uri=\""+song.getUri()+"\"", null);
+		db.delete("Songs", "uri=\""+uri+"\"", null);
 		db.close();
 	}
 
@@ -197,7 +201,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		File songFile = new File(song.getUri());
 		if(!songFile.exists()) {
 			Utils.showMessageDialog(this, R.string.notFound, R.string.songNotFound);
-			deleteSongFromCache(song);
+			deleteSongFromCache(song.getUri());
 			return;
 		}
 		setResult(1, intent);
