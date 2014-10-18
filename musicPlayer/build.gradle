@@ -1,13 +1,12 @@
 apply plugin: 'android'
 
 android {
-    //compileSdkVersion 19
-    //compileSdkVersion "android-L"
-    buildToolsVersion '20.0.0'
+    buildToolsVersion '21.0.1'
     defaultConfig {
         applicationId 'com.andreadec.musicplayer'
         minSdkVersion 16
-        targetSdkVersion 19
+        targetSdkVersion 21
+        compileSdkVersion 21
     }
     buildTypes {
         debug {
@@ -24,18 +23,6 @@ android {
     lintOptions {
         abortOnError false
     }
-    productFlavors {
-        androidL {
-            minSdkVersion 'L'
-            targetSdkVersion 'L'
-            compileSdkVersion "android-L"
-        }
-        android {
-            minSdkVersion 16
-            targetSdkVersion 19
-            compileSdkVersion 19
-        }
-    }
 }
 
 project.ext.set("archivesBaseName", "MusicPlayer");
@@ -48,8 +35,7 @@ repositories {
 }
 
 dependencies {
-    androidCompile 'com.android.support:support-v4:19.+'
-    androidLCompile 'com.android.support:support-v4:20.+'
+    compile 'com.android.support:support-v4:21.+'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
     compile 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0@aar'
